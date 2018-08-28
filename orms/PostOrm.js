@@ -66,12 +66,13 @@ module.exports = class PostOrm {
      * @param {String} author 
      * @param {Array} tags 
      */
-    insert(postId, url, title, content, author, tags){
+    insert(postId, url, title, content, thumb, author, tags){
         const ristre = {
             postId: postId,
             url: url,
             title: title,
             content: content,
+            thumb: thumb,
             description: content.substring(0, 300),//get first 300 chars
             date: formatDate(),
             author: author,

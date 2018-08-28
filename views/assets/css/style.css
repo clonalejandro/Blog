@@ -1,0 +1,77 @@
+#wrapper {
+    margin-top: 5em;
+}
+
+section.section#header {
+    text-align: center;
+}
+
+header.header > div.title > h1.headline {
+    font-size: 2em
+}
+
+header.header > div.title > h2.subtitle {
+    font-weight: 300;
+    font-size: 1.3em;
+}
+
+header.header > div.title > svg {
+    width: 10%;
+    height: 10%;
+    margin-bottom: 1%;
+}
+
+div.card-link {
+    display: flex;
+    margin: 20px;
+}
+
+div.card-link .is-text{
+    margin-left: 5%
+}
+
+a.external {
+    z-index: 1;
+    position: absolute;
+    top: .5em;
+    left: 80%;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    box-shadow: 0 1px 2px 0 rgba(31,45,61,.15);
+}
+
+a.external > img {
+    width: 50%;
+    height: 100%;
+}
+
+div#wrapper > div.container.flex-container {
+    margin: auto;
+    max-width: 960px;
+    position: relative;
+    padding: 0 2em;
+}
+
+.border {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #dfe4e6;
+    margin: 2em auto;
+    text-align: center;
+}
+
+.border > .border-title {
+    position: relative;
+    top: -1.112em;
+    display: inline-block;
+    font-size: 0.75em;
+    background: #F3F4F8;
+    padding: 0 0.75em;
+    font-weight: 300;
+}

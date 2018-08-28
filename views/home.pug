@@ -1,4 +1,77 @@
-extends skeleton
+doctype html
+html
+    head
+        - var blogLogo = "https://es.gravatar.com/userimage/95988980/f3fb5b089aa16571ff40cbcc7657da35.png"
+        - var title = "Alex blog"
+        - var description = "Description"
+        - var author = "clonalejandro"
+        - var thumb = `${blogLogo}`
+        - var tagsString = "tagsString"
+        - var twitter = "@blogClona"
+        - var webURI = "https://clonalejandro.me"
+        - var blogName = "Blog de alex"
 
-block content
-    h1 Last post 
+        meta(name="DC.title", content=`${title}`)
+        meta(property="og:title", content=`${title}`)
+        meta(name="twitter:title", content=`${title}`)
+        meta(charset="utf-8")
+        meta(lang="es")
+        meta(http-equiv="Content-Language", content="en")
+        meta(http-equiv="Content-Type", content="text/html; charset=UTF-8")
+        meta(name="description", content=`${description}`)
+        meta(name="keywords", content=`${tagsString}`)
+        meta(name="author", content=`${author}`)
+        link(rel="apple-touch-icon", sizes="120x120", alt=`${title}`, href=`${blogLogo}?size=120`)
+        link(rel="apple-touch-icon", sizes="152x152", alt=`${title}`, href=`${blogLogo}?size=152`)
+        link(rel="icon", href=`${blogLogo}`, alt=`{title}`, type="image/png")
+        link(rel="shortcut icon", href=`${blogLogo}`, alt=`${blogLogo}`, type="image/png")
+        meta(name="robots", content="all")
+        meta(name="distribution", content="global")
+        meta(name="google", content="translate")
+        meta(name="DC.creator", content=`${author}`)
+        meta(name="DC.description", content=`${description}`)
+        meta(property="og:description", content=`${description}`)
+        meta(property="og:type", content="website")
+        meta(property="og:url", content=`${webURI}`)
+        meta(property="og:image", content=`${thumb}`)
+        meta(property="og:site_name", content=`${blogName}`)
+        meta(name="twitter:card", content="summary")
+        meta(name="twitter:site", content=`${twitter}`)
+        meta(name="twitter:description", content=`${description}`)
+        meta(name="twitter:image", content=`${thumb}`)
+        meta(name="twitter:url", content=`${webURI}`)
+        meta(name="generator", content="clonacms")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0, shrink-to-fit=no")
+        meta(name="theme-color", content="#000000")
+
+        title #{title}
+
+        link(href="https://clonalejandro.github.io/cdn/clonaweb/malextrap.min.css", rel="stylesheet")
+        style 
+            include assets/css/style.css
+    body
+        div#wrapper
+            header.header
+                div.title
+                    include components/logo.svg
+                    h1.headline #{blogName}
+                    h2.subtitle A Blog about 
+                        strong.subtitleTyped
+
+            div.container.flex-container
+                span.border
+                    span.border-title Lastest Post
+                div.card-link
+                    div.card.card-shadow(style="background-image: url('https://clonalejandro.github.io/lazyload/img/image1.jpg')")
+                        div.filter
+                            a.external
+                                img(src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgNTExLjYyNiA1MTEuNjI3IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTEuNjI2IDUxMS42Mjc7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNMzkyLjg1NywyOTIuMzU0aC0xOC4yNzRjLTIuNjY5LDAtNC44NTksMC44NTUtNi41NjMsMi41NzNjLTEuNzE4LDEuNzA4LTIuNTczLDMuODk3LTIuNTczLDYuNTYzdjkxLjM2MSAgICBjMCwxMi41NjMtNC40NywyMy4zMTUtMTMuNDE1LDMyLjI2MmMtOC45NDUsOC45NDUtMTkuNzAxLDEzLjQxNC0zMi4yNjQsMTMuNDE0SDgyLjIyNGMtMTIuNTYyLDAtMjMuMzE3LTQuNDY5LTMyLjI2NC0xMy40MTQgICAgYy04Ljk0NS04Ljk0Ni0xMy40MTctMTkuNjk4LTEzLjQxNy0zMi4yNjJWMTU1LjMxYzAtMTIuNTYyLDQuNDcxLTIzLjMxMywxMy40MTctMzIuMjU5YzguOTQ3LTguOTQ3LDE5LjcwMi0xMy40MTgsMzIuMjY0LTEzLjQxOCAgICBoMjAwLjk5NGMyLjY2OSwwLDQuODU5LTAuODU5LDYuNTctMi41N2MxLjcxMS0xLjcxMywyLjU2Ni0zLjksMi41NjYtNi41NjdWODIuMjIxYzAtMi42NjItMC44NTUtNC44NTMtMi41NjYtNi41NjMgICAgYy0xLjcxMS0xLjcxMy0zLjkwMS0yLjU2OC02LjU3LTIuNTY4SDgyLjIyNGMtMjIuNjQ4LDAtNDIuMDE2LDguMDQyLTU4LjEwMiwyNC4xMjVDOC4wNDIsMTEzLjI5NywwLDEzMi42NjUsMCwxNTUuMzEzdjIzNy41NDIgICAgYzAsMjIuNjQ3LDguMDQyLDQyLjAxOCwyNC4xMjMsNTguMDk1YzE2LjA4NiwxNi4wODQsMzUuNDU0LDI0LjEzLDU4LjEwMiwyNC4xM2gyMzcuNTQzYzIyLjY0NywwLDQyLjAxNy04LjA0Niw1OC4xMDEtMjQuMTMgICAgYzE2LjA4NS0xNi4wNzcsMjQuMTI3LTM1LjQ0NywyNC4xMjctNTguMDk1di05MS4zNThjMC0yLjY2OS0wLjg1Ni00Ljg1OS0yLjU3NC02LjU3ICAgIEMzOTcuNzA5LDI5My4yMDksMzk1LjUxOSwyOTIuMzU0LDM5Mi44NTcsMjkyLjM1NHoiIGZpbGw9IiMwMDAwMDAiLz4KCQk8cGF0aCBkPSJNNTA2LjE5OSw0MS45NzFjLTMuNjE3LTMuNjE3LTcuOTA1LTUuNDI0LTEyLjg1LTUuNDI0SDM0Ny4xNzFjLTQuOTQ4LDAtOS4yMzMsMS44MDctMTIuODQ3LDUuNDI0ICAgIGMtMy42MTcsMy42MTUtNS40MjgsNy44OTgtNS40MjgsMTIuODQ3czEuODExLDkuMjMzLDUuNDI4LDEyLjg1bDUwLjI0Nyw1MC4yNDhMMTk4LjQyNCwzMDQuMDY3ICAgIGMtMS45MDYsMS45MDMtMi44NTYsNC4wOTMtMi44NTYsNi41NjNjMCwyLjQ3OSwwLjk1Myw0LjY2OCwyLjg1Niw2LjU3MWwzMi41NDgsMzIuNTQ0YzEuOTAzLDEuOTAzLDQuMDkzLDIuODUyLDYuNTY3LDIuODUyICAgIHM0LjY2NS0wLjk0OCw2LjU2Ny0yLjg1MmwxODYuMTQ4LTE4Ni4xNDhsNTAuMjUxLDUwLjI0OGMzLjYxNCwzLjYxNyw3Ljg5OCw1LjQyNiwxMi44NDcsNS40MjZzOS4yMzMtMS44MDksMTIuODUxLTUuNDI2ICAgIGMzLjYxNy0zLjYxNiw1LjQyNC03Ljg5OCw1LjQyNC0xMi44NDdWNTQuODE4QzUxMS42MjYsNDkuODY2LDUwOS44MTMsNDUuNTg2LDUwNi4xOTksNDEuOTcxeiIgZmlsbD0iIzAwMDAwMCIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=")
+                            h3.is-text Title
+                            p.title.is-text Post de prueba 
+                            div.filter.card-body
+                                h3.is-text Description
+                                p.description.is-text Como volver a la vida mil veces con sombreros de hamburguesa.
+                            div.filter.card-footer
+                                h3.is-text Date
+                                p.date.is-text 15/03/2018
+        include components/script.pug

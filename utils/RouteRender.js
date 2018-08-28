@@ -46,6 +46,7 @@ module.exports = class RouteRender {
                     url: row["url"],
                     title: row["title"],
                     content: row["content"],
+                    thumb: row["thumb"],
                     description: row["description"],
                     date: row["date"],
                     author: row["author"],
@@ -56,6 +57,7 @@ module.exports = class RouteRender {
                     res.render('post', {
                         title: data.title,
                         content: data.content,
+                        thumb: data.thumb,
                         description: data.description,
                         date: data.date,
                         author: data.author,
