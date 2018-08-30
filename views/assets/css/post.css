@@ -1,0 +1,19 @@
+header.header img.thumb {
+    margin-top: 5%;
+    width: 90%;
+}
+
+div.post-footer {
+    margin-top: 5%;
+}
+
+div.post-footer div.tags {
+    text-align: right;
+    margin-left: 50%;
+}
+
+div.post-footer div.post-info {
+    text-align: left;
+    font-size: 1.6rem;
+    color: #be4bdb;
+}

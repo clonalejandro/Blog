@@ -1,21 +1,9 @@
 /** IMPORTS **/
 
-const Mongo = require("../utils/Mongo");
 const PostSchema = require("../schemas/PostSchema");
 
 
 /** PRIVATE METHODS **/
-
-/**
- * This function prepare mongo and return schema built
- * @param {*} mongo 
- * @return schemaBuilt
- */
-const prepareMongo = mongo => {
-    mongo.start();
-    return PostSchema
-};
-
 
 /**
  * This function format date passed by parameter
@@ -34,8 +22,8 @@ module.exports = class PostOrm {
 
     constructor(App){
         this.App = App;
-        this.Mongo = new Mongo("blog", App);
-        this.postSchema = prepareMongo(this.Mongo);
+        this.Mongo = this.App.Mongo();
+        this.postSchema = PostSchema;
     }
 
 
@@ -59,31 +47,32 @@ module.exports = class PostOrm {
 
     /**
      * This function insert into table the data passed by parameters
-     * @param {number} postId 
      * @param {String} url 
      * @param {String} title 
      * @param {String} content 
      * @param {String} author 
      * @param {Array} tags 
      */
-    insert(postId, url, title, content, thumb, author, tags){
-        const ristre = {
-            postId: postId,
-            url: url,
-            title: title,
-            content: content,
-            thumb: thumb,
-            description: content.substring(0, 300),//get first 300 chars
-            date: formatDate(),
-            author: author,
-            tags: tags
-        };
+    insert(url, title, content, thumb, author, tags){
+        this.postSchema.find().select("postId").sort({postId: 'desc'}).exec((err, res) => {
+            const ristre = {
+                postId: res[0]["postId"] + 1,
+                url: url,
+                title: title,
+                content: content,
+                thumb: thumb,
+                description: content.substring(0, 300),//get first 300 chars
+                date: formatDate(),
+                author: author,
+                tags: tags
+            };
 
-        new this.postSchema(ristre).save(err => { 
+            new this.postSchema(ristre).save(err => { 
                 if (err) this.App.throwErr(err) 
-        });
+            });
 
-        this.App.debug("Data inserted: " + JSON.stringify(ristre));
+            this.App.debug("Data inserted: " + JSON.stringify(ristre));
+        })
     }
 
 

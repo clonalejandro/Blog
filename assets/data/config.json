@@ -1,0 +1,10 @@
+{
+    "port": 80,
+    "apiKey": "12345A",
+    "registerAllowed": true,
+    "session": {
+        "secret": "12345A",
+        "resave": false,
+        "saveUninitialized": false
+    }
+}

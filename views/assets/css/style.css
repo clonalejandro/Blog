@@ -21,13 +21,269 @@ header.header > div.title > svg {
     margin-bottom: 1%;
 }
 
+header.header > div.title > a > svg {
+    width: 10%;
+    height: 10%;
+    margin-bottom: 1%;
+}
+
+a.external > img {
+    width: 50%;
+    height: 100%;
+}
+
+div#wrapper > div.container.flex-container {
+    margin: auto;
+    max-width: 960px;
+    position: relative;
+}
+
+.no-decoration{
+    text-decoration: none;
+}
+
+.footer-body li, .social li, .img-replace {
+    display: inline-block;
+}
+
+footer {
+    font-size: 1.2125rem;
+    padding: 2em 0;
+    margin-top: 30px;
+    border-top: 1px solid #e1e1e1;
+    background: #f1f3f5
+}
+
+.footer-body ul,footer a,footer p {
+    vertical-align: baseline;
+    padding: 0
+}
+
+footer a, footer p {
+    border: 0;
+    font: inherit;
+    margin: 0
+}
+
+footer .footer-container {
+    position: relative;
+    height: 100%
+}
+
+.footer-container {
+    width: 90%;
+    text-align: center;
+    max-width: 1170px;
+    margin: 0 auto
+}
+
+.footer-body a {
+    color: #f1f3f5;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(198,70,61,0);
+    -webkit-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s
+}
+
+.footer-body li {
+    margin: 0 1em 1em 0
+}
+
+.footer-body ul {
+    border: 0;
+    font: inherit;
+    margin: 1em 0 0
+}
+
+.footer-body ul.social {
+    margin-top: 0
+}
+
+.footer-body li a {
+    color: #9f9f9f;
+    font-weight: 400
+}
+
+.social a.pi {
+    background: url(https://clonalejandro.github.io/cdn/clonaweb/social.svg) hsla(0,0%,94%,0)
+}
+
+.social a.g, .social a.pi {
+    width: 30px;
+    height: 30px;
+    border-radius: .25em;
+    -webkit-transition: background-color .2s;
+    -o-transition: background-color .2s;
+    transition: background-color .2s;
+    border: none
+}
+
+.social a.g {
+    background-image: url(https://clonalejandro.github.io/cdn/clonaweb/gitlab.svg)
+}
+
+.social a.twitter {
+    background-position: 0 0
+}
+
+.social a.github {
+    background-position: -30px 0
+}
+
+.social a.facebook {
+    background-position: -60px 0
+}
+
+.social a.dribbble {
+    background-position: -90px 0
+}
+
+.social a.google {
+    background-position: -120px 0
+}
+
+.social a.rss {
+    background-position: -150px 0
+}
+
+.social a.gitlab {
+    background-position: 0 0;
+}
+
+.social a.twitter:hover {
+    background-color: #50abf1;
+    background-position: 0 -30px
+}
+
+.social a.github:hover {
+    background-color: #333;
+    background-position: -30px -30px
+}
+
+.social a.facebook:hover {
+    background-color: #3b599a;
+    background-position: -60px -30px
+}
+
+.social a.dribbble:hover {
+    background-color: #ec4989;
+    background-position: -90px -30px
+}
+
+.social a.google:hover {
+    background-color: #df4a32;
+    background-position: -120px -30px
+}
+
+.social a.rss:hover {
+    background-color: #e77b39;
+    background-position: -150px -30px
+}
+
+.social a.gitlab:hover {
+    background-color: #6b4fbb;
+    background-position: -30px 0
+}
+
+@media only screen and (min-width: 768px) {
+    .social {
+        text-align:left
+    }
+}
+
+@media only screen and (min-width: 1170px) {
+    .has-adv .social li a.pi {
+        -webkit-transform:translateZ(0);
+        -ms-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden
+    }
+}
+
+.social {
+    text-align: center;
+    margin-top: 0
+}
+
+.social li {
+    margin: 0
+}
+
+.img-replace {
+    overflow: hidden;
+    text-indent: 100%;
+    background: 50% no-repeat;
+}
+
+.no-touch .social a:hover {
+    border: none
+}
+
+div.help {
+    text-align: center;
+}
+
+div.help > a {
+    color: #5A94E0;
+    font-size: 70%;
+}
+
+/* FOR MALEXTRAP TODO AND REFORM CARD STRUCTURE */
+
+div.navbar {
+    margin: 20px;
+}
+
+@media only screen and (min-width: 768px){
+    div.navbar {
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+}
+
+div.navbar > div.nav-container {
+    margin: 40px 0;
+    text-align: right;
+}
+
+@media only screen and (max-width: 576px){
+    div.navbar > div.nav-container {
+        text-align: center;
+    }
+}
+
+div.navbar a.item {
+    margin-left: 40px;
+}
+
+div.navbar a {
+    color: #7950f2;
+}
+
+.btn i.icon.icons-arrow-thin-right {
+    margin-left: 5%;
+    bottom: 15%;
+}
+
+.btn i.icon.icons-lock-open {
+    margin-left: 5%;
+    bottom: 20%;
+    position: relative;
+}
+
 div.card-link {
     display: flex;
-    margin: 20px;
+    margin: 2%;
 }
 
 div.card-link .is-text{
     margin-left: 5%
+}
+
+div.card > div.filter {
+    width: 100%;
 }
 
 a.external {
@@ -44,16 +300,36 @@ a.external {
     box-shadow: 0 1px 2px 0 rgba(31,45,61,.15);
 }
 
-a.external > img {
-    width: 50%;
-    height: 100%;
+.label {
+    padding: 1px 3px 2px;
+    font-size: 9.75px;
+    color: #f8f9fa;
+    background-color: #bfbfbf;
+    border-radius: 3px;
 }
 
-div#wrapper > div.container.flex-container {
-    margin: auto;
-    max-width: 960px;
-    position: relative;
-    padding: 0 2em;
+.label.label-blue {
+    background-color: #4595E6;
+}
+
+.label.label-red {
+    background-color: #f03e3e;
+}
+
+.label.label-pink {
+    background-color: #e64980;
+}
+
+.label.label-purple {
+    background-color: #7950f2;
+}
+
+.label.label-rainbow {
+    text-transform: uppercase;
+    font-weight: 700;
+    -webkit-animation: rainbow 5s infinite;
+    animation: rainbow 5s infinite;
+    color: #fff;
 }
 
 .border {
@@ -74,4 +350,42 @@ div#wrapper > div.container.flex-container {
     background: #F3F4F8;
     padding: 0 0.75em;
     font-weight: 300;
+}
+
+/* ANIMATIONS */
+
+@keyframes rainbow {
+    0% {
+        background-color: #e64980;
+    }
+    10% {
+        background-color: #f03e3e;
+    }
+    20% {
+        background-color: #fa5252;
+    }
+    30% {
+        background-color: #fd7e14;
+    }
+    40% {
+        background-color: #fcc419;
+    }
+    50% {
+        background-color: #5FB335;
+    }
+    60% {
+        background-color: #2ecc71;
+    }
+    70% {
+        background-color: #4595E6;
+    }
+    80% {
+        background-color: #22b8cf;
+    }
+    90% {
+        background-color: #7950f2;
+    }
+    100% {
+        background-color: #be4bdb;
+    }
 }
