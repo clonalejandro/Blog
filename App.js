@@ -20,6 +20,7 @@ module.exports = class App {
     constructor(server, path){
         this.server = server;
         this.path = path;
+        App.server = server;
         Mongo = new Mongo("blog", App);
         PostOrm = new PostOrm(App);
         UserOrm = new UserOrm(App);
@@ -31,6 +32,14 @@ module.exports = class App {
 
 
     /** REST **/
+
+    /**
+     * This is an instance of RouteRender
+     */
+    static RouteRender(){
+        return RouteRender
+    }
+
 
     /**
      * This is an instance of PostOrm
@@ -143,7 +152,8 @@ module.exports = class App {
      */
     configureServer(cookieParser, bodyParser, session, passport){
         this.server.use(cookieParser());
-        this.server.use(bodyParser.urlencoded({extended: false}));
+        this.server.use(bodyParser.json());
+        this.server.use(bodyParser.urlencoded({extended: true}));
         this.server.use(flash());
         this.server.use(session(config.session));
         this.server.use(passport.initialize());
@@ -159,13 +169,12 @@ module.exports = class App {
     /**
      * This function prepare node server
      */
-    prepareServer(port){
+    prepareServer(){
         this.server.set('views', this.path.join(__dirname, 'views'));
         this.server.set('view engine', 'pug');
-
         this.server.listen(config.port, () => {
             App.debug("The server has been started! 🎨");
-            App.debug("The server listen port: " + port);
+            App.debug("The server listen port: " + config.port);
         });
     }
 
@@ -175,8 +184,9 @@ module.exports = class App {
      */
     prepareRoutes(){
         RouteRender.renderPages(routes);
-        RouteRender.renderPosts(PostOrm);
+        RouteRender.renderPosts();
         RouteRender.renderAuth(Auth.Passport());
+        RouteRender.renderPanel();
         RouteRender.renderApi();
     }
 

@@ -129,13 +129,4 @@ $(document).ready(() => {
     $("#load-more").on('click', (event) => builder.buildPosts());
 
     
-    try {
-        const text = document.getElementById("alertLoginText").textContent;
-        if (text == "" || text == undefined || text == null)
-            $("#alertLogin").attr("style", "display: none");
-        else $("#alertLogin").attr("style", null);
-    } 
-    catch(ignored){}
-
-    
 });

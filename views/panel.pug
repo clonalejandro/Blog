@@ -1,0 +1,90 @@
+doctype html
+html
+    head
+        - var blogLogo = "https://es.gravatar.com/userimage/95988980/f3fb5b089aa16571ff40cbcc7657da35.png"
+        - var title = "Panel"
+        - var description = "A panel system developed by clonalejandro"
+        - var author = "clonalejandro"
+        - var thumb = `${blogLogo}`
+        - var tagsString = "login system developed clonalejandro node nodejs js javascript"
+        - var twitter = "@clonalejandro11"
+        - var webURI = ""
+        - var blogName = "Panel"
+
+        meta(name="DC.title", content=`${title}`)
+        meta(property="og:title", content=`${title}`)
+        meta(name="twitter:title", content=`${title}`)
+        meta(charset="utf-8")
+        meta(lang="es")
+        meta(http-equiv="Content-Language", content="en")
+        meta(http-equiv="Content-Type", content="text/html; charset=UTF-8")
+        meta(name="description", content=`${description}`)
+        meta(name="keywords", content=`${tagsString}`)
+        meta(name="author", content=`${author}`)
+        link(rel="apple-touch-icon", sizes="120x120", alt=`${title}`, href=`${blogLogo}?size=120`)
+        link(rel="apple-touch-icon", sizes="152x152", alt=`${title}`, href=`${blogLogo}?size=152`)
+        link(rel="icon", href=`${blogLogo}`, alt=`{title}`, type="image/png")
+        link(rel="shortcut icon", href=`${blogLogo}`, alt=`${blogLogo}`, type="image/png")
+        meta(name="robots", content="all")
+        meta(name="distribution", content="global")
+        meta(name="google", content="translate")
+        meta(name="DC.creator", content=`${author}`)
+        meta(name="DC.description", content=`${description}`)
+        meta(property="og:description", content=`${description}`)
+        meta(property="og:type", content="website")
+        meta(property="og:url", content=`${webURI}`)
+        meta(property="og:image", content=`${thumb}`)
+        meta(property="og:site_name", content=`${blogName}`)
+        meta(name="twitter:card", content="summary")
+        meta(name="twitter:site", content=`${twitter}`)
+        meta(name="twitter:description", content=`${description}`)
+        meta(name="twitter:image", content=`${thumb}`)
+        meta(name="twitter:url", content=`${webURI}`)
+        meta(name="generator", content="clonacms")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0, shrink-to-fit=no")
+        meta(name="theme-color", content="#000000")
+
+        title #{title}
+
+        //Adsense
+        script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+        script
+            include assets/js/adsense.js
+        link(href="https://clonalejandro.github.io/cdn/clonaweb/malextrap.min.css", rel="stylesheet")
+        style 
+            include assets/css/style.css
+            include assets/css/panel.css
+    body
+        div#modalTrasher.modal
+            div.modal-container
+                p Are you sure to want delete this entry
+                ul.cd-buttons
+                    li
+                        a.no-decoration.delete(href="#") Yes
+                    li
+                        a.no-decoration.close(href="#") No
+                a.no-decoration.modal-close.img-replace(href="#")
+
+        div#wrapper
+            header.header
+                div.title
+                    a(href="/")
+                        include components/logo.svg
+                    h1.headline Welcome 
+                        strong #{username} 
+                        | to #{blogName}
+            div.container
+                center
+                    table#posts
+                        tr.head
+                            th PostId
+                            th Title
+                            th Action
+                    
+
+        include components/footer.pug
+        include components/script.pug
+        script
+            include assets/js/modal.js
+        script
+            include assets/js/panel.js

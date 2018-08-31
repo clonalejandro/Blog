@@ -41,10 +41,10 @@ module.exports = class RouteRender {
 
     /**
      * This function render posts with db
-     * @param {PostOrm} PostOrm 
+     * @param {Boolean} debug debug
      */
-    renderPosts(PostOrm){
-        PostOrm.findByQuery({}, null, (err, res) => {
+    renderPosts(debug = true){
+        this.App.PostOrm().findByQuery({}, null, (err, res) => {
             if (err){
                 this.App.throwErr(err);
                 return;
@@ -86,8 +86,7 @@ module.exports = class RouteRender {
                         res.status(500).send(err);
                     }
                 });
-
-                this.App.debug("The server is registering route: \"" + data.url + "\" aiming to: post");
+                if (debug) this.App.debug("The server is registering route: \"" + data.url + "\" aiming to: post");
             })
         })
     }
@@ -108,6 +107,7 @@ module.exports = class RouteRender {
         );*/
 
         this.renderApiEntries();
+        this.renderApiDeleteEntries();
     }
 
 
@@ -149,6 +149,32 @@ module.exports = class RouteRender {
             }
         });
         this.App.debug("The server is registering api-route: \"/api/last-entries\"");
+    }
+
+
+    /**
+     * This function render routes with api deletes
+     */
+    renderApiDeleteEntries(){
+        this.server.post('/api/delete-entrie', (req, res) => {
+            typeof req.body.postId == "string" ?
+                req.body.postId = parseInt(req.query.postId, 10) : 
+                req.body.postId = req.body.postId;
+
+            if (req.connection.remoteAddress != "::1"){
+                res.status(401).send("<h1>Forbidden</h1>");//TODO Build system errors with pug
+                return;
+            }
+
+            try {
+                this.App.Api().deleteEntrie(req.body.postId);
+            }
+            catch (err){
+                this.App.throwAlert(err);
+                res.status(500).send(err);
+            }
+        });
+        this.App.debug("The server is registering api-route: \"/api/delete-entrie\"");
     }
 
 
@@ -226,7 +252,7 @@ module.exports = class RouteRender {
     renderPanel(){
         this.server.get('/panel', this.isAuthenticated, (req, res) => {
             try {
-                res.render('panel');
+                res.render('panel', {username: req.user.username});
             } 
             catch (err){
                 this.App.throwAlert(err);

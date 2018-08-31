@@ -70,9 +70,29 @@ module.exports = class PostOrm {
             new this.postSchema(ristre).save(err => { 
                 if (err) this.App.throwErr(err) 
             });
+            
+            /** REGISTER NEW ENTRY */
+            this.App.server.get(ristre.url, (req, res) => {
+                try {
+                    res.render('post', {
+                        title: ristre.title,
+                        content: ristre.content,
+                        thumb: ristre.thumb,
+                        description: ristre.description,
+                        date: ristre.date,
+                        author: ristre.author,
+                        tagsString: ristre.tags.join(" "),
+                        tags: ristre.tags
+                    })
+                } 
+                catch (err){
+                    this.App.throwAlert(err);
+                    res.status(500).send(err);
+                }
+            });
 
             this.App.debug("Data inserted: " + JSON.stringify(ristre));
-        })
+        });
     }
 
 

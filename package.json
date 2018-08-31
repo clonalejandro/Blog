@@ -1,7 +1,7 @@
 {
 	"name": "blog",
 	"version": "1.0.0",
-	"description": "A tech blog",
+	"description": "A tech blog built in nodejs, express, mongodb and pug",
 	"main": "index.js",
 	"scripts": {
 		"start": "node index.js",

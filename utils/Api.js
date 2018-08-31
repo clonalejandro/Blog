@@ -20,4 +20,13 @@ module.exports = class Api {
     }
 
 
+    /**
+     * This function delete from db an entrie
+     * @param {number} postId 
+     */
+    deleteEntrie(postId){
+        this.App.PostOrm().delete({postId: postId});
+    }
+
+
 }
