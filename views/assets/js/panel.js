@@ -37,7 +37,7 @@ class PostTable {
      */
     buildPosts(){
         for (let i = 0; i < this.trigger; i++){ 
-            if (!this.posts.length){
+            if (!this.posts.length || this.posts[i] == undefined){
                 $("#load-more").remove();
                 break;
             }
@@ -46,12 +46,13 @@ class PostTable {
             const properties = {
                 postId: row["postId"],
                 title: row["title"],
+                url: row["url"]
             };
 
             let element = "<tr>";
 
-            element += "<td>" + properties.postId + "</td>";
-            element += "<td>" + properties.title + "</td>";
+            element += "<td>" + `<a style='color: white' class='no-decoration' href='/posts${properties.url}'>${properties.postId}</a>` + "</td>";
+            element += "<td>" + `<a style='color: white' class='no-decoration' href='/posts${properties.url}'>${properties.title}</a>` + "</td>";
             element += "<td>" + `<a class='btn btn-icon red animated' onclick='openTrasher(this)' id='D${properties.postId}'><i class='icon icons-trash'></i></a>` + "</td>";
 
             $("#posts").append(element);
@@ -73,9 +74,33 @@ $(document).ready(() => {
     $("#modalTrasher .modal-close").click(() => modalTrasher.close());
     $("#modalTrasher .close").click(() => modalTrasher.close());
     $("#modalTrasher .delete").click(() => deleteEntrie());
+    $("textarea").jqte({change: onContentChange}).jqteVal("<span style='color: red'>Put your post content here</span>");
+    $('[name=tags]').tagify({maxTags: 20, delimiters: ","});
 });
 
 
+/**
+ * This function extract text from html node
+ * @param {String} html 
+ */
+function strip(html){
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || "";
+}
+
+
+/**
+ * This copy this content in invisible node for convert content to description without html nodes
+ */
+function onContentChange(){
+    const editorContent = strip($(".jqte_editor").html());
+    $("#description").attr("value", editorContent);
+}
+
+
+/**
+ * Delete an entrie post with the private api
+ */
 function deleteEntrie(){
     const url = "/api/delete-entrie?postId=" + postId;
     const req = new XMLHttpRequest();
@@ -97,7 +122,36 @@ function deleteEntrie(){
 }
 
 
+/**
+ * Manage the content while you press the bubble button
+ * @param {*} bind 
+ */
+function actionManager(bind){
+    const id = bind.id;
+    const icon = bind.childNodes[0];
+
+    if (id == "create"){
+       $("#posts").attr("style", "display: none");
+       $("#creator").attr("style", null);
+
+       bind.setAttribute("id", "return");//Switch the bubble
+       icon.setAttribute("class", "icons-arrow-thin-left");//Switch the icon bubble
+    }
+    else if (id == "return"){
+        $("#posts").attr("style", null);
+        $("#creator").attr("style", "display: none");
+ 
+        bind.setAttribute("id", "create");//Switch the bubble
+        icon.setAttribute("class", "icons-plus");//Switch the icon bubble
+    }
+}
+
+
+/**
+ * Modal open o click trash button
+ * @param {*} bind 
+ */
 function openTrasher(bind){
     modalTrasher.open();
-    postId = bind.id.replace("D", "");
+    postId = bind.id.replace("D", "");//get id of post you want to delete
 }

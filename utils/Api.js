@@ -12,7 +12,7 @@ module.exports = class Api {
 
     /**
      * This function return the last entries
-     * @param {number} amount 
+     * @param {number} amount amount
      */
     getLastEntries(amount = 1){
         const schema = this.App.PostOrm().getSchema();
@@ -21,11 +21,22 @@ module.exports = class Api {
 
 
     /**
-     * This function delete from db an entrie
-     * @param {number} postId 
+     * This function delete entrie from db
+     * @param {number} postId postId
      */
     deleteEntrie(postId){
         this.App.PostOrm().delete({postId: postId});
+    }
+
+
+    /**
+     * This function update entrie content from db
+     * @param {number} postId  postId
+     * @param {String} content content
+     * @param {String} description description
+     */
+    updateEntrieContent(postId, content, description){
+        this.App.PostOrm().update({postId: postId}, {content: content, description: description});    
     }
 
 

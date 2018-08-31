@@ -51,6 +51,10 @@ html
         script
             include assets/js/adsense.js
         link(href="https://clonalejandro.github.io/cdn/clonaweb/malextrap.min.css", rel="stylesheet")
+        style
+            include assets/editor/editor.css
+        style
+            include assets/tagify/tagify.css
         style 
             include assets/css/style.css
             include assets/css/panel.css
@@ -80,10 +84,40 @@ html
                             th PostId
                             th Title
                             th Action
-                    
-
+                form#creator(style="display: none", action="/api/create-entrie", method="post")
+                    div.form-group
+                        div
+                            label Url 
+                                i.icons-link
+                            input(name="url", type="text", placeholder="/your-post-title", required)
+                        br
+                        div
+                            label Title 
+                                i.icons-document-edit
+                            input(name="title", type="text", placeholder="Banana", required)
+                        br
+                        div
+                            textarea(name="content", required)
+                        br
+                        div
+                            label Post Thumbnail recommended sizes 900 x 900
+                                i.icons-document
+                            input(name="thumb", type="url", placeholder="https://i.imgur.com/R2eVSvO.jpg")
+                        div
+                            input(name="tags", value="Java", required)
+                        input#description(name="description", style="display: none")
+                        br    
+                        button.btn.adapter.green.animated(type="submit") Validate
+                            i.icon.icons-lock-open
+                
+                a.bubble.top#create(onclick="actionManager(this)")
+                    i.icons-plus
         include components/footer.pug
         include components/script.pug
+        script
+            include assets/editor/editor.min.js
+        script
+            include assets/tagify/tagify.min.js
         script
             include assets/js/modal.js
         script

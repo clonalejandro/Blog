@@ -41,54 +41,37 @@ module.exports = class RouteRender {
 
     /**
      * This function render posts with db
-     * @param {Boolean} debug debug
      */
-    renderPosts(debug = true){
-        this.App.PostOrm().findByQuery({}, null, (err, res) => {
-            if (err){
-                this.App.throwErr(err);
-                return;
-            }
+    renderPosts(){
+        this.server.get("/posts/:postName", (req, res) => {
+            this.App.PostOrm().findByQuery({url: "/" + req.params.postName}, null, (err, rows) => {
+                if (rows[0] == null || rows[0] == undefined){
+                    res.status(404).send("<h1>404 Not found!</h1>");
+                    return;
+                }
+                rows = rows[0];
 
-            if (this.App.isNull(res)){
-                this.App.throwAlert("Any post in db!");
-                return;
-            }
-
-            res.forEach(row => {
-                const data = {
-                    postId: row["postId"],
-                    url: row["url"],
-                    title: row["title"],
-                    content: row["content"],
-                    thumb: row["thumb"],
-                    description: row["description"],
-                    date: row["date"],
-                    author: row["author"],
-                    tags: row["tags"]
-                };
-
-                this.server.get(data.url, (req, res) => {
-                    try {
-                        res.render('post', {
-                            title: data.title,
-                            content: data.content,
-                            thumb: data.thumb,
-                            description: data.description,
-                            date: data.date,
-                            author: data.author,
-                            tagsString: data.tags.join(" "),
-                            tags: data.tags
-                        })
-                    } 
-                    catch (err){
-                        this.App.throwAlert(err);
-                        res.status(500).send(err);
-                    }
-                });
-                if (debug) this.App.debug("The server is registering route: \"" + data.url + "\" aiming to: post");
+                try {
+                    res.render('post', {
+                        id: rows.postId,
+                        title: rows.title,
+                        content: rows.content,
+                        thumb: rows.thumb,
+                        description: rows.description,
+                        date: rows.date,
+                        author: rows.author,
+                        tagsString: rows.tags.join(" "),
+                        tags: rows.tags,
+                        isAuthenticated: req.isAuthenticated()
+                    })
+                }
+                catch (err){
+                    this.App.throwAlert(err);
+                    res.status(500).send(err);
+                }
             })
-        })
+        });
+        this.App.debug("The server is registering posts routes");
     }
 
 
@@ -96,18 +79,11 @@ module.exports = class RouteRender {
      * This function render all api routes
      */
     renderApi(){
-        //this.App.PostOrm().delete({postId: 4});
-        /*this.App.PostOrm().insert(
-            '/clonewars-nueva-temporada',
-            'Clone wars nueva temporada',
-            'Hablemos del retraso de disney para sacar su última temporada de clone wars',
-            "http://getwallpapers.com/wallpaper/full/8/8/f/248404.jpg",
-            "alejandro rios calera",
-            ["Star wars", "Clone wars", "Temporada"]
-        );*/
-
         this.renderApiEntries();
         this.renderApiDeleteEntries();
+        this.renderApiUpdateContent();
+        this.renderApiCreateEntrie();
+        this.renderApiTest();
     }
 
 
@@ -158,7 +134,7 @@ module.exports = class RouteRender {
     renderApiDeleteEntries(){
         this.server.post('/api/delete-entrie', (req, res) => {
             typeof req.body.postId == "string" ?
-                req.body.postId = parseInt(req.query.postId, 10) : 
+                req.body.postId = parseInt(req.body.postId, 10) : 
                 req.body.postId = req.body.postId;
 
             if (req.connection.remoteAddress != "::1"){
@@ -175,6 +151,85 @@ module.exports = class RouteRender {
             }
         });
         this.App.debug("The server is registering api-route: \"/api/delete-entrie\"");
+    }
+
+
+    /**
+     * This function render routes with api update content
+     */
+    renderApiUpdateContent(){
+        this.server.post('/api/update-entrie-content', (req, res) => {
+            typeof req.body.postId == "string" ?
+                req.body.postId = parseInt(req.body.postId, 10) :
+                req.body.postId = req.body.postId;
+
+            if (req.connection.remoteAddress != "::1"){
+                res.status(401).send("<h1>Forbidden</h1>");//TODO Build system errors with pug
+                return;
+            }
+
+            try {
+                this.App.Api().updateEntrieContent(req.body.postId, req.body.content, req.body.description);
+            }
+            catch (err){
+                this.App.throwAlert(err);
+                res.status(500).send(err);
+            }
+        });
+        this.App.debug("The server is registering api-route: \"/api/update-entrie-content\"");
+    }
+
+
+    /**
+     * This function render route for api create a post
+     */
+    renderApiCreateEntrie(){
+        this.server.post('/api/create-entrie', (req, res) => {
+            if (req.connection.remoteAddress != "::1"){
+                res.status(401).send("<h1>Forbidden</h1>");//TODO Build system errors with pug
+                return;
+            }
+
+            //HYDRATE tags
+            req.body.tags = req.body.tags.replace("[", "");
+            req.body.tags = req.body.tags.replace("]", "");
+            req.body.tags = this.App.replaceAll(req.body.tags, "\"", "");
+            req.body.tags = req.body.tags.split(",");
+
+            try {
+                const data = req.body;
+                this.App.PostOrm().insert(data.url, data.title, data.content, data.thumb, data.description, req.user.username, data.tags);
+                res.redirect('/panel');
+            }
+            catch (err){
+                this.App.throwAlert(err);
+                res.status(500).send(err);
+            }
+        });
+        this.App.debug("The server is registering api-route: \"/api/create-entrie\"");
+    }
+
+
+    /**
+     * This function render route for api test
+     */
+    renderApiTest(){
+        this.server.post('/api/test', (req, res) => {
+            if (req.connection.remoteAddress != "::1"){
+                res.status(401).send("<h1>Forbidden</h1>");//TODO Build system errors with pug
+                return;
+            }
+
+            try {
+                this.App.debug(req.body, "TEST");
+                res.redirect('/panel');
+            }
+            catch (err){
+                this.App.throwAlert(err);
+                res.status(500).send(err);
+            }
+        });
+        this.App.debug("The server is registering api-route: \"/api/test\"");
     }
 
 

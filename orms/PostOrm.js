@@ -47,13 +47,15 @@ module.exports = class PostOrm {
 
     /**
      * This function insert into table the data passed by parameters
-     * @param {String} url 
-     * @param {String} title 
-     * @param {String} content 
-     * @param {String} author 
-     * @param {Array} tags 
+     * @param {String} url url
+     * @param {String} title title
+     * @param {String} content content
+     * @param {String} thumb thumb
+     * @param {String} description description
+     * @param {String} author author
+     * @param {Array} tags tags
      */
-    insert(url, title, content, thumb, author, tags){
+    insert(url, title, content, thumb, description, author, tags){
         this.postSchema.find().select("postId").sort({postId: 'desc'}).exec((err, res) => {
             const ristre = {
                 postId: res[0]["postId"] + 1,
@@ -61,7 +63,7 @@ module.exports = class PostOrm {
                 title: title,
                 content: content,
                 thumb: thumb,
-                description: content.substring(0, 300),//get first 300 chars
+                description: description,
                 date: formatDate(),
                 author: author,
                 tags: tags
@@ -69,26 +71,6 @@ module.exports = class PostOrm {
 
             new this.postSchema(ristre).save(err => { 
                 if (err) this.App.throwErr(err) 
-            });
-            
-            /** REGISTER NEW ENTRY */
-            this.App.server.get(ristre.url, (req, res) => {
-                try {
-                    res.render('post', {
-                        title: ristre.title,
-                        content: ristre.content,
-                        thumb: ristre.thumb,
-                        description: ristre.description,
-                        date: ristre.date,
-                        author: ristre.author,
-                        tagsString: ristre.tags.join(" "),
-                        tags: ristre.tags
-                    })
-                } 
-                catch (err){
-                    this.App.throwAlert(err);
-                    res.status(500).send(err);
-                }
             });
 
             this.App.debug("Data inserted: " + JSON.stringify(ristre));
@@ -102,7 +84,7 @@ module.exports = class PostOrm {
      * @param {Object} data data
      * @param {*} callback callback
      */
-    update(condition, data, callback){
+    update(condition, data, callback = null){
         if (this.App.isNull(callback))
             this.postSchema.update(condition, data, (err, res) => {
                 if (err) this.App.throwErr(err);

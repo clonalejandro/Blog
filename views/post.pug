@@ -46,6 +46,9 @@ html
         script
             include assets/js/adsense.js
         link(href="https://clonalejandro.github.io/cdn/clonaweb/malextrap.min.css", rel="stylesheet")
+        if isAuthenticated
+            style
+                include assets/editor/editor.css
         style 
             include assets/css/style.css
             include assets/css/post.css
@@ -59,12 +62,12 @@ html
             header.header
                 div.title
                     h1.headline #{title}
-                    h2.subtitle #{description}
+                    h2.subtitle#description #{description}
                     img.thumb(src=`${thumb}`)
             div.container
                 span.border
                     span.border-title #{title}
-                div.columns
+                div#content
                     != content
                 div.post-footer
                     div.columns
@@ -75,8 +78,20 @@ html
                         div.tags
                             each tag in tags
                                 label.label.tag= tag
+                if isAuthenticated
+                    br
+                    span.border
+                        span.border-title Editor
+                    textarea#editor
+                    br
+                    center
+                        button.btn.adapter.btn-icon.green.animated.updater(id=`${id}`, onclick="onUpdaterClick()") Update
+                            i.icon.icons-upload
         
         include components/footer.pug
         include components/script.pug
+        if isAuthenticated
+            script
+                include assets/editor/editor.min.js
         script
             include assets/js/post.js

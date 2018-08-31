@@ -103,6 +103,7 @@ module.exports = class App {
 
         if (prefix.includes("ERROR")) console.log(Color.FgRed + prefix + Color.FgMagenta + prompt + Color.Reset + data);
         else if (prefix.includes("ALERT")) console.log(Color.FgYellow + prefix + Color.FgMagenta + prompt + Color.Reset + data);
+        else if (prefix.includes("TEST")) console.log(Color.FgCyan + prefix + Color.FgMagenta + prompt + Color.Reset + data);
         else console.log(Color.FgBlue + prefix + Color.FgMagenta + prompt + Color.Reset + data);
     }
 

@@ -32,10 +32,14 @@ a.external > img {
     height: 100%;
 }
 
-div#wrapper > div.container.flex-container {
+div#wrapper div.container.flex-container {
     margin: auto;
     max-width: 960px;
     position: relative;
+}
+
+div.form-group .jqte {
+    text-align: initial;
 }
 
 .no-decoration{
@@ -410,6 +414,10 @@ div.navbar > div.nav-container {
     }
 }
 
+.bubble.top {
+    bottom: 85%;
+}
+
 div.navbar a.item {
     margin-left: 40px;
 }
@@ -423,10 +431,9 @@ div.navbar a {
     bottom: 15%;
 }
 
-.btn i.icon.icons-lock-open {
-    margin-left: 5%;
-    bottom: 20%;
-    position: relative;
+.btn.adapter i {
+    margin-left: 5%!important;
+    position: relative!important;
 }
 
 div.card-link {
