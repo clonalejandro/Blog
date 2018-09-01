@@ -1,10 +1,42 @@
 {
-    "port": 80,
-    "apiKey": "12345A",
-    "registerAllowed": true,
-    "session": {
-        "secret": "12345A",
-        "resave": false,
-        "saveUninitialized": false
-    }
+	"blogName": "Blog de alex",
+	"url": "http://localhost",
+	"email": "clonalejandro@gmail.com",
+	"twitter": "@clonalejandro11",
+	"logo": "https://es.gravatar.com/userimage/95988980/f3fb5b089aa16571ff40cbcc7657da35.png",
+	"port": 80,
+	"mongoURL": "mongodb://localhost:27017/",
+	"database": "blog",
+	"apiKey": "12345A",
+	"registerAllowed": true,
+	"session": {
+		"secret": "54321A",
+		"resave": false,
+		"saveUninitialized": false
+	},
+	"stmp": {
+		"use": false,
+		"config": {
+			"host": "my.stmp.host",
+			"port": 465,
+			"secure": true,
+			"auth": {
+				"user": "username",
+				"pass": "password"
+			},
+			"tls": {
+				"rejectUnauthorized": false
+			}
+		}
+	},
+	"gmail": {
+		"use": true,
+		"config": {
+			"service": "gmail",
+			"auth": {
+				"user": "clonalejandro@gmail.com",
+				"pass": "lol"
+			}
+		}
+	}
 }

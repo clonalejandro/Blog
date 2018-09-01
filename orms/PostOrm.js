@@ -31,6 +31,7 @@ module.exports = class PostOrm {
 
     /**
      * This function returns mongo
+     * @return {*} mongo
      */
     getMongo(){
         return this.mongo
@@ -39,6 +40,7 @@ module.exports = class PostOrm {
     
     /**
      * This function returns the postSchema
+     * @return {*} postSchema
      */
     getSchema(){
         return this.postSchema
@@ -99,7 +101,7 @@ module.exports = class PostOrm {
      * @param {Object} condition condition
      * @param {*} callback callback
      */
-    delete(condition, callback){
+    delete(condition, callback = null){
         if (this.App.isNull(callback))
             this.postSchema.findOneAndRemove(condition, (err, res) => {
                 if (err) this.App.throwErr(err);

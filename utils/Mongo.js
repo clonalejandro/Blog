@@ -1,6 +1,7 @@
 /** IMPORTS **/
 
 const mongoose = require("mongoose");
+const config = require("../assets/data/config.json");
 
 
 module.exports = class Mongo {
@@ -12,7 +13,7 @@ module.exports = class Mongo {
         this.App = App;
         this.properties = {
             name: dbName,
-            url: "mongodb://localhost:27017/" + dbName
+            url: config.mongoURL + config.database
         };
     }
 

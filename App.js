@@ -5,8 +5,10 @@ const config = require("./assets/data/config.json");
 const Color = require("./utils/Color");
 const flash = require("connect-flash");
 var Mongo = require("./utils/Mongo");
+var Mailer = require("./utils/Mailer");
 var PostOrm = require("./orms/PostOrm");
 var UserOrm = require("./orms/UserOrm");
+var FeedOrm = require("./orms/FeedOrm");
 var Auth = require("./utils/Auth");
 var Api = require("./utils/Api");
 var RouteRender = require("./utils/RouteRender");
@@ -22,8 +24,10 @@ module.exports = class App {
         this.path = path;
         App.server = server;
         Mongo = new Mongo("blog", App);
+        Mailer = new Mailer(App);
         PostOrm = new PostOrm(App);
         UserOrm = new UserOrm(App);
+        FeedOrm = new FeedOrm(App);
         Api = new Api(App);
         RouteRender = new RouteRender(server, App);
 
@@ -57,6 +61,11 @@ module.exports = class App {
     }
 
 
+    static FeedOrm(){
+        return FeedOrm
+    }
+
+
     /**
      * This is an instance of Mongo
      */
@@ -65,6 +74,14 @@ module.exports = class App {
     }
 
 
+    /**
+     * This is an instance of Mail server
+     */
+    static Mailer(){
+        return Mailer
+    }
+
+    
     /**
      * This is an instance of Api
      */
@@ -189,6 +206,7 @@ module.exports = class App {
         RouteRender.renderAuth(Auth.Passport());
         RouteRender.renderPanel();
         RouteRender.renderApi();
+        RouteRender.renderErrors();
     }
 
 

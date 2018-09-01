@@ -14,7 +14,8 @@ class Modal {
      * This function open the modal
      */
     open(){
-        this.modal.setAttribute("class","modal is-visible")
+        const currentClass = this.modal.getAttribute("class");
+        this.modal.setAttribute("class", currentClass + " is-visible")
     }
 
 

@@ -46,10 +46,6 @@ html
 
         title #{title}
 
-        //Adsense
-        script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
-        script
-            include assets/js/adsense.js
         link(href="https://clonalejandro.github.io/cdn/clonaweb/malextrap.min.css", rel="stylesheet")
         style
             include assets/editor/editor.css
@@ -103,6 +99,7 @@ html
                             label Post Thumbnail recommended sizes 900 x 900
                                 i.icons-document
                             input(name="thumb", type="url", placeholder="https://i.imgur.com/R2eVSvO.jpg")
+                        br
                         div
                             input(name="tags", value="Java", required)
                         input#description(name="description", style="display: none")
@@ -114,6 +111,7 @@ html
                     i.icons-plus
         include components/footer.pug
         include components/script.pug
+        script const apiKey = '#{apiKey}'
         script
             include assets/editor/editor.min.js
         script

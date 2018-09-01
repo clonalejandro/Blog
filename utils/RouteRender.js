@@ -1,6 +1,7 @@
 /** IMPORTS **/
 
 const config = require("../assets/data/config.json");
+const whitelist = require("../assets/data/whitelist.json");
 
 
 module.exports = class RouteRender {
@@ -26,14 +27,19 @@ module.exports = class RouteRender {
 
             this.server.get(url, (req, res) => {
                 try {
-                    res.render(view)
+                    res.render(view, {
+                        webURI: config.url,
+                        twitter: config.twitter,
+                        blogLogo: config.logo,
+                        blogName: config.blogName,
+                        apiKey: config.apiKey
+                    })
                 } 
                 catch (err){
                     this.App.throwAlert(err);
                     res.status(500).send(err);
                 }
             });
-
             this.App.debug("The server is registering route: \"" + url + "\" aiming to: " + view);
         })
     }
@@ -46,13 +52,19 @@ module.exports = class RouteRender {
         this.server.get("/posts/:postName", (req, res) => {
             this.App.PostOrm().findByQuery({url: "/" + req.params.postName}, null, (err, rows) => {
                 if (rows[0] == null || rows[0] == undefined){
-                    res.status(404).send("<h1>404 Not found!</h1>");
+                    res.status(404);
+                    res.render('errors/404');
                     return;
                 }
-                rows = rows[0];
 
+                rows = rows[0];
+                
                 try {
                     res.render('post', {
+                        webURI: config.url,
+                        blogLogo: config.logo,
+                        blogName: config.blogName,
+                        twitter: config.twitter,
                         id: rows.postId,
                         title: rows.title,
                         content: rows.content,
@@ -66,8 +78,7 @@ module.exports = class RouteRender {
                     })
                 }
                 catch (err){
-                    this.App.throwAlert(err);
-                    res.status(500).send(err);
+                    this.renderInternalErr(res, err);
                 }
             })
         });
@@ -83,6 +94,8 @@ module.exports = class RouteRender {
         this.renderApiDeleteEntries();
         this.renderApiUpdateContent();
         this.renderApiCreateEntrie();
+        this.renderApiDeleteMail();
+        this.renderApiCreateMail(); 
         this.renderApiTest();
     }
 
@@ -111,7 +124,7 @@ module.exports = class RouteRender {
                 req.query.amount = req.query.amount;
 
             if (this.App.isNull(req.query.key) || req.query.key != config.apiKey){
-                res.status(401).send("<h1>Forbidden</h1>");//TODO Build system errors with pug
+                this.renderForbidden(res);
                 return;
             }
 
@@ -137,8 +150,8 @@ module.exports = class RouteRender {
                 req.body.postId = parseInt(req.body.postId, 10) : 
                 req.body.postId = req.body.postId;
 
-            if (req.connection.remoteAddress != "::1"){
-                res.status(401).send("<h1>Forbidden</h1>");//TODO Build system errors with pug
+            if (!whitelist.includes(req.connection.remoteAddress)){
+                this.renderForbidden(res);
                 return;
             }
 
@@ -163,8 +176,8 @@ module.exports = class RouteRender {
                 req.body.postId = parseInt(req.body.postId, 10) :
                 req.body.postId = req.body.postId;
 
-            if (req.connection.remoteAddress != "::1"){
-                res.status(401).send("<h1>Forbidden</h1>");//TODO Build system errors with pug
+            if (!whitelist.includes(req.connection.remoteAddress)){
+                this.renderForbidden(res);
                 return;
             }
 
@@ -185,8 +198,8 @@ module.exports = class RouteRender {
      */
     renderApiCreateEntrie(){
         this.server.post('/api/create-entrie', (req, res) => {
-            if (req.connection.remoteAddress != "::1"){
-                res.status(401).send("<h1>Forbidden</h1>");//TODO Build system errors with pug
+            if (!whitelist.includes(req.connection.remoteAddress)){
+                this.renderForbidden(res);
                 return;
             }
 
@@ -198,7 +211,10 @@ module.exports = class RouteRender {
 
             try {
                 const data = req.body;
+
                 this.App.PostOrm().insert(data.url, data.title, data.content, data.thumb, data.description, req.user.username, data.tags);
+                this.App.Api().alertNewsletter(data);
+
                 res.redirect('/panel');
             }
             catch (err){
@@ -211,12 +227,62 @@ module.exports = class RouteRender {
 
 
     /**
+     * This function render route for api delete email from feed
+     */
+    renderApiDeleteMail(){
+        this.server.get('/api/delete-mail', (req, res) => {
+            this.App.FeedOrm().findByQuery({_id: req.query.id}, null, (err, rows) => {
+                if (rows[0] == null || rows[0] == undefined){
+                    res.render('errors/404');
+                    return;
+                }
+
+                rows = rows[0];
+
+                try {
+                    this.App.Api().deleteMail(req.params.id, rows.email);
+                    res.redirect('/');
+                }
+                catch (err){
+                    this.App.throwAlert(err);
+                    res.status(500).send(err);
+                }
+            })
+        });
+        this.App.debug("The server is registering api-route: \"/api/delete-mail\"");
+    }
+
+
+     /**
+     * This function render route for api create email from feed
+     */
+    renderApiCreateMail(){
+        this.server.post('/api/create-mail', (req, res) => {
+            if (!whitelist.includes(req.connection.remoteAddress)){
+                this.renderForbidden(res);
+                return;
+            }
+
+            try {
+                this.App.Api().createMail(req.body.email);
+                res.redirect('/');
+            }
+            catch (err){
+                this.App.throwAlert(err);
+                res.status(500).send(err);
+            }
+        });
+        this.App.debug("The server is registering api-route: \"/api/create-mail\"");
+    }
+
+
+    /**
      * This function render route for api test
      */
     renderApiTest(){
         this.server.post('/api/test', (req, res) => {
-            if (req.connection.remoteAddress != "::1"){
-                res.status(401).send("<h1>Forbidden</h1>");//TODO Build system errors with pug
+            if (!whitelist.includes(req.connection.remoteAddress)){
+                this.renderForbidden(res);
                 return;
             }
 
@@ -241,7 +307,12 @@ module.exports = class RouteRender {
         this.server.get('/signup', this.preventRelogin, (req, res) => {
             try {
                 if (req.isAuthenticated()) res.redirect('/logout');
-                res.render('signup', { message: req.flash('message') });
+                res.render('signup', { 
+                    message: req.flash('message'),
+                    blogLogo: config.logo,
+                    twitter: config.twitter,
+                    webURI: config.url
+                });
             }
             catch (err){
                 this.App.throwAlert(err);
@@ -267,7 +338,12 @@ module.exports = class RouteRender {
     renderLogin(passport){
         this.server.get('/login', this.preventRelogin, (req, res) => {
             try {
-                res.render('login', { message: req.flash('message') });
+                res.render('login', { 
+                    message: req.flash('message'),
+                    blogLogo: config.logo,
+                    twitter: config.twitter,
+                    webURI: config.url 
+                });
             } 
             catch (err){
                 this.App.throwAlert(err);
@@ -304,10 +380,13 @@ module.exports = class RouteRender {
     }
 
 
+    /**
+     * This function render the panel route and the panel view
+     */
     renderPanel(){
         this.server.get('/panel', this.isAuthenticated, (req, res) => {
             try {
-                res.render('panel', {username: req.user.username});
+                res.render('panel', {username: req.user.username, apiKey: config.apiKey});
             } 
             catch (err){
                 this.App.throwAlert(err);
@@ -316,6 +395,72 @@ module.exports = class RouteRender {
         });
         
         this.App.debug("The server is registering route: \"/panel\" aiming to: panel");
+    }
+
+
+    /**
+     * This function render errors like 404, 500
+     */
+    renderErrors(){
+        //404
+        this.server.use((req, res) =>
+            res.render('errors/404', {
+                webURI: config.url,
+                twitter: config.twitter,
+                blogLogo: config.logo,
+                blogName: config.blogName,
+                apiKey: config.apiKey
+            })
+        );
+        this.App.debug("The server is registering route: \"404\" aiming to: errors/404");
+
+        //500
+        this.server.use((error, req, res, next) => {
+            res.status(error.stauts || 500)
+            res.render('errors/500', {
+                webURI: config.url,
+                twitter: config.twitter,
+                blogLogo: config.logo,
+                blogName: config.blogName,
+                apiKey: config.apiKey,
+                error: error.message
+            })
+        });
+        this.App.debug("The server is registering route: \"500\" aiming to: errors/500");
+    }
+
+
+    /**
+     * This function render all 500 error
+     * @param {*} res res
+     * @param {*} error error
+     */
+    renderInternalErr(res, error){
+        res.status(500);
+        res.render('errors/500', {
+            webURI: config.url,
+            twitter: config.twitter,
+            blogLogo: config.logo,
+            blogName: config.blogName,
+            apiKey: config.apiKey,
+            error: error.message
+        })
+    }
+
+
+    /**
+     * This function render all 401 error
+     * @param {*} res res
+     */
+    renderForbidden(res){
+        res.status(401);
+        res.render('errors/401', {
+            webURI: config.url,
+            twitter: config.twitter,
+            blogLogo: config.logo,
+            blogName: config.blogName,
+            apiKey: config.apiKey
+        })
     }
 
 

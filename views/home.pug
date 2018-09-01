@@ -1,15 +1,11 @@
 doctype html
 html
     head
-        - var blogLogo = "https://es.gravatar.com/userimage/95988980/f3fb5b089aa16571ff40cbcc7657da35.png"
-        - var title = "Alex blog"
+        - var title = `${blogName}`
         - var description = "A blog about programming, hardware & technology. In this blog speak about new technologys etc..."
         - var author = "clonalejandro"
         - var thumb = `${blogLogo}`
         - var tagsString = "hardware programming tech technology blog blogger system cms js javascript java css html android arduino hacking internet network networking node react native swift ios linux windows star wars clone wars"
-        - var twitter = "@blogClona"
-        - var webURI = ""
-        - var blogName = "Blog de alex"
 
         meta(name="DC.title", content=`${title}`)
         meta(property="og:title", content=`${title}`)
@@ -54,6 +50,21 @@ html
         style 
             include assets/css/style.css
     body
+        div#modalNews.modal.big
+            div.modal-container
+                p Would you like to be aware of our news?
+                    br 
+                    | You can subscribe to newsletter
+                form(action="/api/create-mail", method="post")
+                    div.form-group
+                        div 
+                            label Email 
+                                i.icons-mail
+                            input(type="email", name="email", required)
+                        br
+                        center
+                            button.btn.green.animated(type="submit") Subscribe
+                a.no-decoration.modal-close.img-replace(href="#")
         div#wrapper
             header.header
                 div.title
@@ -73,5 +84,8 @@ html
         
         include components/footer.pug
         include components/script.pug
+        script const apiKey = '#{apiKey}'
+        script 
+            include assets/js/modal.js
         script
             include assets/js/home.js

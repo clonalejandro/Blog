@@ -246,7 +246,7 @@ div.help > a {
 }
 
 .modal {
-    z-index: 1;
+    z-index: 99;
     position: fixed;
     left: 0;
     top: 0;
@@ -267,7 +267,11 @@ div.help > a {
     -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
     transition: opacity 0.3s 0s, visibility 0s 0s;
 }
-  
+
+.modal.big .modal-container {
+    max-width: initial
+}
+
 .modal-container {
     position: relative;
     width: 90%;

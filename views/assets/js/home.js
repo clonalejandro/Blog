@@ -15,7 +15,7 @@ class PostBuilder {
      * This function build and return the request response
      */
     requestLastPosts(){
-        const url = "/api/last-entries?key=12345A&amount=100";
+        const url = `/api/last-entries?key=${apiKey}&amount=100`;
         const req = new XMLHttpRequest();
 
         req.open("get", url, true);
@@ -105,9 +105,23 @@ class PostBuilder {
 
 };
 
+const modalNews = new Modal("modalNews");
+
+function loadModalFeed(){
+    const rand = Math.floor((Math.random() * 15) + 1);
+    if (rand == 1) modalNews.open();
+}
+
+
 $(document).ready(() => {
     console.log("DOM Loaded");
     
+    /** MODAL **/
+    loadModalFeed();
+    $("#modalNews .modal-close").click(() => modalNews.close());
+    $("#modalNews .close").click(() => modalNews.close());
+    //$("#modalNews .delete").click(() => deleteEntrie());
+
     /** POST BUILDER */
     const builder = new PostBuilder();
     builder.requestLastPosts();

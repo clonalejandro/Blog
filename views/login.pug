@@ -1,14 +1,12 @@
 doctype html
 html
     head
-        - var blogLogo = "https://es.gravatar.com/userimage/95988980/f3fb5b089aa16571ff40cbcc7657da35.png"
         - var title = "Login"
         - var description = "A login system developed by clonalejandro"
         - var author = "clonalejandro"
         - var thumb = `${blogLogo}`
         - var tagsString = "login system developed clonalejandro node nodejs js javascript"
         - var twitter = "@clonalejandro11"
-        - var webURI = ""
         - var blogName = "Login"
 
         meta(name="DC.title", content=`${title}`)
@@ -46,10 +44,6 @@ html
 
         title #{title}
 
-        //Adsense
-        script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
-        script
-            include assets/js/adsense.js
         link(href="https://clonalejandro.github.io/cdn/clonaweb/malextrap.min.css", rel="stylesheet")
         style 
             include assets/css/style.css

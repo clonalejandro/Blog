@@ -16,7 +16,7 @@ class PostTable {
      * This function build and return the request response
      */
     requestLastPosts(){
-        const url = "/api/last-entries?key=12345A&amount=100";
+        const url = `/api/last-entries?key=${apiKey}&amount=100`;
         const req = new XMLHttpRequest();
 
         req.open("get", url, true);

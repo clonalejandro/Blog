@@ -20,6 +20,7 @@ module.exports = class UserOrm {
 
     /**
      * This function returns mongo
+     * @return {*} mongo
      */
     getMongo(){
         return this.mongo
@@ -28,6 +29,7 @@ module.exports = class UserOrm {
     
     /**
      * This function returns the userSchema
+     * @return {*} userSchema
      */
     getSchema(){
         return this.userSchema
@@ -39,8 +41,9 @@ module.exports = class UserOrm {
      * @param {String} username username 
      * @param {String} password password 
      * @param {String} email email
+     * @param {*} callback callback
      */
-    insert(username, password, email, callback){
+    insert(username, password, email, callback = null){
         const ristre = {
             username: username,
             password: this.createHash(password),
@@ -63,7 +66,7 @@ module.exports = class UserOrm {
      * @param {Object} data data
      * @param {*} callback callback
      */
-    update(condition, data, callback){
+    update(condition, data, callback = null){
         if (this.App.isNull(callback))
             this.userSchema.update(condition, data, (err, res) => {
                 if (err) this.App.throwErr(err);
@@ -78,7 +81,7 @@ module.exports = class UserOrm {
      * @param {Object} condition condition
      * @param {*} callback callback
      */
-    delete(condition, callback){
+    delete(condition, callback = null){
         if (this.App.isNull(callback))
             this.userSchema.findOneAndRemove(condition, (err, res) => {
                 if (err) this.App.throwErr(err);

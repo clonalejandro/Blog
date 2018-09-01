@@ -1,6 +1,12 @@
 doctype html
 html
     head
+        - var title = `Error 404 | ${blogName}`
+        - var description = "A blog about programming, hardware & technology. In this blog speak about new technologys etc..."
+        - var author = "clonalejandro"
+        - var thumb = `${blogLogo}`
+        - var tagsString = "hardware programming tech technology blog blogger system cms js javascript java css html android arduino hacking internet network networking node react native swift ios linux windows star wars clone wars"
+
         meta(name="DC.title", content=`${title}`)
         meta(property="og:title", content=`${title}`)
         meta(name="twitter:title", content=`${title}`)
@@ -37,52 +43,21 @@ html
         title #{title}
 
         link(href="https://clonalejandro.github.io/cdn/clonaweb/malextrap.min.css", rel="stylesheet")
-        if isAuthenticated
-            style
-                include assets/editor/editor.css
         style 
-            include assets/css/style.css
-            include assets/css/post.css
+            include ../assets/css/style.css
     body
         div#wrapper
-            div.navbar
-                div.nav-container
-                    a.no-decoration(href="/") Home
-                    a.no-decoration.item Search
-                    a.no-decoration.item(href="mailto:contact@clonalejandro.me") Contact
             header.header
                 div.title
-                    h1.headline #{title}
-                    h2.subtitle#description #{description}
-                    img.thumb(src=`${thumb}`)
-            div.container
-                span.border
-                    span.border-title #{title}
-                div#content
-                    != content
-                div.post-footer
-                    div.columns
-                        div.post-info
-                            strong #{author} 
-                            br
-                            span.date On #{date}
-                        div.tags
-                            each tag in tags
-                                label.label.tag= tag
-                if isAuthenticated
-                    br
-                    span.border
-                        span.border-title Editor
-                    textarea#editor
-                    br
-                    center
-                        button.btn.adapter.btn-icon.green.animated.updater(id=`${id}`, onclick="onUpdaterClick()") Update
-                            i.icon.icons-upload
-        
-        include components/footer.pug
-        include components/script.pug
-        if isAuthenticated
-            script
-                include assets/editor/editor.min.js
-        script
-            include assets/js/post.js
+                    a(href="/")
+                        include ../components/logo.svg
+                    h1.headline Error 404
+                    h2.subtitle You are lost? 
+                        br
+                        | We have a video four you
+
+            div.container.flex-container
+                center
+                    img(alt="404 error", src="https://i.giphy.com/media/xfZZr7AlQSENi/giphy.webp")
+        include ../components/footer.pug
+        include ../components/script.pug
