@@ -39,10 +39,12 @@ html
         link(href="https://clonalejandro.github.io/cdn/clonaweb/malextrap.min.css", rel="stylesheet")
         if isAuthenticated
             style
-                include assets/editor/editor.css
+                include assets/editor/editor.min.css
+        style
+            include assets/lazyload/lazyload.min.css
         style 
-            include assets/css/style.css
-            include assets/css/post.css
+            include assets/css/style.min.css
+            include assets/css/post.min.css
     body
         div#wrapper
             div.navbar
@@ -54,7 +56,7 @@ html
                 div.title
                     h1.headline #{title}
                     h2.subtitle#description #{description}
-                    img.thumb(src=`${thumb}`)
+                    img.thumb(src='', data-src=`${thumb}`)
             div.container
                 span.border
                     span.border-title #{title}
@@ -81,8 +83,10 @@ html
         
         include components/footer.pug
         include components/script.pug
+        script
+            include assets/lazyload/lazyload.min.js
         if isAuthenticated
             script
                 include assets/editor/editor.min.js
         script
-            include assets/js/post.js
+            include assets/js/post.min.js

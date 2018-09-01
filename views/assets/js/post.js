@@ -83,6 +83,9 @@ function strip(html){
 
 
 $(document).ready(() => {
+    /** START THE LAZYLOAD */
+    new LazyLoad();
+
     /** FORMAT TEXT */
     $(".date").text(
         dateFormater(

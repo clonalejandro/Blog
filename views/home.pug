@@ -45,10 +45,10 @@ html
         //Adsense
         script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
         script
-            include assets/js/adsense.js
+            include assets/js/adsense.min.js
         link(href="https://clonalejandro.github.io/cdn/clonaweb/malextrap.min.css", rel="stylesheet")
         style 
-            include assets/css/style.css
+            include assets/css/style.min.css
     body
         div#modalNews.modal.big
             div.modal-container
@@ -85,7 +85,7 @@ html
         include components/footer.pug
         include components/script.pug
         script const apiKey = '#{apiKey}'
-        script 
-            include assets/js/modal.js
         script
-            include assets/js/home.js
+            include assets/js/modal.min.js
+        script
+            include assets/js/home.min.js
