@@ -97,15 +97,15 @@ module.exports = class Api {
      */
     alertNewsletter(data){
         this.App.FeedOrm().findByQuery({}, null, (err, res) => {
-            let emails = new Array();
-            Object.keys(res).forEach(rows => emails.push(res[rows].email));
-            emails = emails.join(",");
+            Object.keys(res).forEach(key => {
+                const mail = res[key];
 
-            this.App.Mailer().sendMail({
-                from: config.email,
-                to: emails,
-                subject: `New entrie in ${config.blogName}`,
-                text: `A new entrie has been published, you can see clicking here ${config.url}/posts${data.url} \nThis entrie is titled as ${data.title}`
+                this.App.Mailer().sendMail({
+                    from: config.email,
+                    to: mail,
+                    subject: `New entrie in ${config.blogName}`,
+                    text: `A new entrie has been published, you can see clicking here ${config.url}/posts${data.url} \nThis entrie is titled as ${data.title}`
+                })
             })
         });
     }
