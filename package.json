@@ -17,6 +17,7 @@
 		"js"
 	],
 	"author": "clonalejandro",
+	"repository": "github:clonalejandro/Blog",
 	"license": "MIT",
 	"dependencies": {
 		"@types/underscore": "^1.8.9",
