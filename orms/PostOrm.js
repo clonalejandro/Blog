@@ -60,7 +60,7 @@ module.exports = class PostOrm {
     insert(url, title, content, thumb, description, author, tags){
         this.postSchema.find().select("postId").sort({postId: 'desc'}).exec((err, res) => {
             const ristre = {
-                postId: res[0]["postId"] + 1,
+                postId: res[0] == undefined ? 0 : ["postId"] + 1,
                 url: url,
                 title: title,
                 content: content,

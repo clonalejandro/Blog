@@ -66,7 +66,7 @@ module.exports = class Auth {
                 schema = new schema();
     
                 schema.username = username;
-                schema.password = password;
+                schema.password = this.App.PostOrm().createHash(password);
                 schema.email = req.param.email;
             
                 schema.save(err => {
