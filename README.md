@@ -18,4 +18,3 @@ You can create entries in <b>your-url/panel</b> and click in the top bubble whos
 ### Configuration
 
 - In the <b>assets/data/config.json</b> you can configure the server
-- In the <b>assets/data/whitelist.json</b> you can add ips so they can use the private api
