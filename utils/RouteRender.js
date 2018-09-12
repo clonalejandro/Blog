@@ -1,8 +1,6 @@
 /** IMPORTS **/
 
 const config = require("../assets/data/config.json");
-const whitelist = require("../assets/data/whitelist.json");
-
 
 module.exports = class RouteRender {
 
@@ -150,7 +148,7 @@ module.exports = class RouteRender {
                 req.body.postId = parseInt(req.body.postId, 10) : 
                 req.body.postId = req.body.postId;
 
-            if (!whitelist.includes(req.connection.remoteAddress)){
+            if (!req.isAuthenticated()){
                 this.renderForbidden(res);
                 return;
             }
@@ -176,7 +174,7 @@ module.exports = class RouteRender {
                 req.body.postId = parseInt(req.body.postId, 10) :
                 req.body.postId = req.body.postId;
 
-            if (!whitelist.includes(req.connection.remoteAddress)){
+            if (!req.isAuthenticated()){
                 this.renderForbidden(res);
                 return;
             }
@@ -198,7 +196,7 @@ module.exports = class RouteRender {
      */
     renderApiCreateEntrie(){
         this.server.post('/api/create-entrie', (req, res) => {
-            if (!whitelist.includes(req.connection.remoteAddress)){
+            if (!req.isAuthenticated()){
                 this.renderForbidden(res);
                 return;
             }
@@ -258,7 +256,7 @@ module.exports = class RouteRender {
      */
     renderApiCreateMail(){
         this.server.post('/api/create-mail', (req, res) => {
-            if (!whitelist.includes(req.connection.remoteAddress)){
+            if (!req.isAuthenticated()){
                 this.renderForbidden(res);
                 return;
             }
@@ -281,7 +279,7 @@ module.exports = class RouteRender {
      */
     renderApiTest(){
         this.server.post('/api/test', (req, res) => {
-            if (!whitelist.includes(req.connection.remoteAddress)){
+            if (!req.isAuthenticated()){
                 this.renderForbidden(res);
                 return;
             }
