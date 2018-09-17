@@ -13,16 +13,34 @@ function dateFormater(date){
  * This function return a randomColor for tag
  */
 function randomColor(){
-    const random = Math.floor((Math.random() * 3) + 0);
+    const random = Math.floor((Math.random() * 11) + 0);
     switch (random){
+        default:
+            return "";
         case 0:
             return "blue";
         case 1:
-            return "red";
+            return "cyan";
         case 2:
-            return "pink";
+            return "emerald";
         case 3:
-            return "purple";
+            return "green";
+        case 4:
+            return "salmon";
+        case 5:
+            return "red";
+        case 6:
+            return "pink";
+        case 7:
+            return "grape";
+        case 8:
+            return "violet";
+        case 9:
+            return "yellow";
+        case 10:
+            return "orange";
+        case 11:
+            return "teal";
     }
 }
 
@@ -108,7 +126,7 @@ $(document).ready(() => {
         const color = randomColor();
 
         try {
-            node.setAttribute("class", "label tag label-" + color);
+            node.setAttribute("class", "label tag " + color);
         } 
         catch (ignored){}
     });
