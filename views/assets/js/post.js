@@ -1,9 +1,10 @@
 /**
  * This function return a date formatted
- * @param {Date} date date
+ * @param {String} date date
  * @return {String} date 
  */
 function dateFormater(date){
+    date = new Date(date);
     return ("0" + date.getDate()).slice(-2) + "/" + ("0" + date.getMonth()).slice(-2) + "/" + date.getFullYear() + " " + ("0" + date.getUTCHours()).slice(-2) + ":" + ("0" + date.getUTCMinutes()).slice(-2);
 }
 
@@ -88,9 +89,7 @@ $(document).ready(() => {
 
     /** FORMAT TEXT */
     $(".date").text(
-        dateFormater(
-            new Date($(".date").text())
-        )
+        dateFormater(postDate)
     );
 
     $("#content").html(

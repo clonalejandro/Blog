@@ -83,6 +83,7 @@ html
         
         include components/footer.pug
         include components/script.pug
+        script const postDate = '#{date}'
         script
             include assets/lazyload/lazyload.min.js
         if isAuthenticated
