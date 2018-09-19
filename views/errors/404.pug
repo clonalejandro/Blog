@@ -42,6 +42,31 @@ html
 
         title #{title}
 
+        //Cookies
+        link(rel="stylesheet", type="text/css", href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css")
+        script(async, src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js")
+        script.
+            window.addEventListener("load", function(){
+            window.cookieconsent.initialise({
+                "palette": {
+                    "popup": {
+                    "background": "#3c404d",
+                    "text": "#d6d6d6"
+                    },
+                    "button": {
+                    "background": "transparent",
+                    "text": "#8bed4f",
+                    "border": "#8bed4f"
+                    }
+                },
+                "position": "bottom-right",
+                "content": {
+                    "dismiss": "Let's go",
+                    "href": "/tos"
+                }
+            })});
+
+            
         link(href="https://clonalejandro.github.io/cdn/clonaweb/malextrap.min.css", rel="stylesheet")
         style 
             include ../assets/css/style.min.css
@@ -54,7 +79,7 @@ html
                     h1.headline Error 404
                     h2.subtitle You are lost? 
                         br
-                        | We have a video four you
+                        | We have a video for you
 
             div.container.flex-container
                 center
