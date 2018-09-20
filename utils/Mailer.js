@@ -11,10 +11,6 @@ function prepareServer(){
         return mailer.createTransport(config.gmail.config);
     else if (config.stmp.use)
         return mailer.createTransport(config.stmp.config);
-    else {
-        console.log("Not defined mail server in the config file");
-        return;
-    }
 }
 
 
@@ -36,6 +32,11 @@ module.exports = class Mailer {
      * @param {Object} options options
      */
     sendMail(options){
+        if (!config.stmp.use && !config.gmail.use) {
+            this.App.throwAlert("Not defined mail server in the config file");
+            return;
+        }
+
         this.server.sendMail(options, (err, res) => {
             if (err) {
                 this.App.throwErr(err);
