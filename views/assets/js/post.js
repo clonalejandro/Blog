@@ -85,8 +85,7 @@ function onUpdaterClick(){
     }
     else {
         updateEntrie(postId, newContent, description);
-        $("#description").text(description);
-        $("#content").html(newContent);
+        window.location.reload(true);
     }
 }
 
@@ -98,6 +97,18 @@ function onUpdaterClick(){
 function strip(html){
     var doc = new DOMParser().parseFromString(html, 'text/html');
     return doc.body.textContent || "";
+}
+
+
+/**
+ * This function be executed when editor change
+ */
+function onEditorChange(){
+    const newContent = $(".jqte_editor").html();
+    const description = strip(newContent).substring(0, 80);
+
+    $("#description").text(description);
+    $("#content").html(newContent);
 }
 
 
@@ -118,6 +129,10 @@ $(document).ready(() => {
     if (document.getElementById("editor")){
         const postContent = $("#content").html();
         $("textarea").jqte().jqteVal($.parseHTML(postContent));
+        
+        //UX for preview changes in the editor
+        $(".jqte_editor").on("keyup", onEditorChange);
+        $("#editor").on("keyup", onEditorChange);
     }
 
     /** TAG COLORS */
