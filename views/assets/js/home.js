@@ -97,7 +97,7 @@ class PostBuilder {
             let card = "<div class='card-link'>";
 
             (properties.thumb != "" && properties.thumb != undefined && properties.thumb != null) ? 
-                card += `<div class='card card-shadow' style=\"background-image: url('${properties.thumb}')\">` :
+                card += `<div class='card card-shadow' onclick=\"window.location = '${properties.url}'\" style=\"background-image: url('${properties.thumb}'); cursor: pointer\">` :
                 card += `<div class='card card-shadow card-${this.randomColor()}'>`;
             
             card += "<div class='filter'>" + `<a href='${properties.url}' class='external'>` + `<img src='${externalSvg}'>` + "</a>";
