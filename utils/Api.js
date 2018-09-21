@@ -66,25 +66,30 @@ module.exports = class Api {
      * @param {String} email email
      */
     createMail(email){
-        this.App.FeedOrm().insert({email: email}, err => {
-            if (err){
-                this.App.throwErr(err);
-                return;
-            }
-
-            this.App.FeedOrm().findByQuery({email: email}, "_id", (err, res) => {
+        this.App.FeedOrm().findByQuery({email: email}, null, (err, rows) => {
+            if (rows[0] != null && rows[0] != undefined) return; //Check if exists
+            
+            this.App.FeedOrm().insert({email: email}, err => {
                 if (err){
                     this.App.throwErr(err);
                     return;
                 }
-
-                res = res[0];
-
-                this.App.Mailer().sendMail({
-                    from: config.email,
-                    to: email,
-                    subject: `Welcome to ${config.blogName}`,
-                    text: `Happy hacking!\nIf you wish to unsubscribe here: ${config.url}/api/delete-mail?id=${res._id}`
+    
+                //Get id for unsubscribe
+                this.App.FeedOrm().findByQuery({email: email}, "_id", (err, res) => {
+                    if (err){
+                        this.App.throwErr(err);
+                        return;
+                    }
+    
+                    res = res[0];
+    
+                    this.App.Mailer().sendMail({
+                        from: config.email,
+                        to: email,
+                        subject: `Welcome to ${config.blogName}`,
+                        text: `Happy hacking!\nIf you wish to unsubscribe here: ${config.url}/api/delete-mail?id=${res._id}`
+                    })
                 })
             })
         })

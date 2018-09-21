@@ -256,11 +256,6 @@ module.exports = class RouteRender {
      */
     renderApiCreateMail(){
         this.server.post('/api/create-mail', (req, res) => {
-            if (!req.isAuthenticated()){
-                this.renderForbidden(res);
-                return;
-            }
-
             try {
                 this.App.Api().createMail(req.body.email);
                 res.redirect('/');
