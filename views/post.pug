@@ -95,6 +95,8 @@ html
                         div.tags
                             each tag in tags
                                 label.label.tag= tag
+                br
+                div(id="disqus_thread")
                 if isAuthenticated
                     br
                     span.border
@@ -104,9 +106,10 @@ html
                     center
                         button.btn.adapter.btn-icon.green.animated.updater(id=`${id}`, onclick="onUpdaterClick()") Update
                             i.icon.icons-upload
-        
+
         include components/footer.pug
         include components/script.pug
+        include components/disqus.pug
         script const postDate = '#{date}'
         script
             include assets/lazyload/lazyload.min.js

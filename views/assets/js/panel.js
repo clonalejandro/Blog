@@ -93,7 +93,7 @@ function strip(html){
  * This copy this content in invisible node for convert content to description without html nodes
  */
 function onContentChange(){
-    const editorContent = strip($(".jqte_editor").html());
+    const editorContent = strip($(".jqte_editor").html()).substr(0, 77) + "...";
     $("#description").attr("value", editorContent);
 }
 
