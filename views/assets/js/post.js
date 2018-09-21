@@ -10,6 +10,16 @@ function dateFormater(date){
 
 
 /**
+ * This function format the text replacing \n per <br>
+ * @param {String} text text
+ * @return {String} text 
+ */
+function breakeFormater(text){
+    return text.includes("\\n") ? text.replace("\\n", "<br>") : text;
+}
+
+
+/**
  * This function return a randomColor for tag
  */
 function randomColor(){
@@ -105,11 +115,10 @@ function strip(html){
  */
 function onEditorChange(){
     const newContent = $(".jqte_editor").html();
-    const description = strip(newContent).substring(0, 80);
+    const description = strip(newContent).substring(0, 77) + "...";
 
-    if ("")
-    $("#description").text(description);
-    $("#content").html(newContent);
+    $("#description").text(breakeFormater(description));
+    $("#content").html(breakeFormater(newContent));
 }
 
 
@@ -123,7 +132,11 @@ $(document).ready(() => {
     );
 
     $("#content").html(
-        $.parseHTML($("#content").html())
+        breakeFormater($("#content").html())
+    );
+
+    $("#description").html(
+        breakeFormater($("#description").html())
     );
 
     //START THE EDITOR

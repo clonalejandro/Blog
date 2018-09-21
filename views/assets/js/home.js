@@ -61,6 +61,16 @@ class PostBuilder {
 
 
     /**
+     * This function format the description
+     * @param {String} description description
+     * @return {String} description 
+     */
+    descriptionFormater(description){
+        return description.includes("\\n") ? description.replace("\\n", "<br>") : description;
+    }
+
+
+    /**
      * This function build the posts
      */
     buildPosts(){
@@ -92,7 +102,7 @@ class PostBuilder {
             
             card += "<div class='filter'>" + `<a href='${properties.url}' class='external'>` + `<img src='${externalSvg}'>` + "</a>";
             card += "<h3 class='is-text'>Title</h3>" + "<p class='title is-text'>" + properties.title + "</p>";
-            card += "<div class='card-body'>" + "<h3 class='is-text'>Description</h3>" + "<p class='description is-text'>" + properties.description + "</p></div>";
+            card += "<div class='card-body'>" + "<h3 class='is-text'>Description</h3>" + "<p class='description is-text'>" + this.descriptionFormater(properties.description) + "</p></div>";
             card += "<div class='card-footer'>" + "<h3 class='is-text'>Date</h3>" + "<p class='date is-text'>" + this.dateFormater(new Date(properties.date)) + "</p></div>";
             card += "</div></div></div>";
 
