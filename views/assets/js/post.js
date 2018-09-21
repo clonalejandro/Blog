@@ -142,7 +142,7 @@ $(document).ready(() => {
     //START THE EDITOR
     if (document.getElementById("editor")){
         const postContent = $("#content").html();
-        $("textarea").jqte().jqteVal($.parseHTML(postContent));
+        $("textarea").jqte().jqteVal($.parseHTML(postContent.replace("<br>", "\\n")));//Al recoger el html del dom pone el br en vez del \n
         
         //UX for preview changes in the editor
         $(".jqte_editor").on("keyup", onEditorChange);
