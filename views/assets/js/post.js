@@ -179,10 +179,10 @@ $(document).ready(() => {
     //Listener for submit search navbar
     $("#buttonSearch").on("click", e => {
         const searchText = $("input[name='search']").val();
-        let url = "";
+        let url = "/posts";
 
         posts.forEach(e => {
-            if (e.title == searchText) url = "/posts" + e.url;
+            if (e.title == searchText) url += e.url;
         });
 
         setTimeout(window.location = url, 500);

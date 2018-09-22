@@ -70,7 +70,7 @@ html
             include assets/css/style.min.css
             include assets/css/post.min.css
     body
-        div#modalSearch.modal.big
+        div#modalSearch.modal
             div.modal-container
                 p Search a post in the input
                 form(onsubmit="return false;", autocomplete="off")
@@ -78,7 +78,7 @@ html
                         div.autocompleter
                             label Search
                                 i.icons-search
-                            input(placeholder="Post name", name="search")
+                            input(style="width:100%", placeholder="Post name", name="search")
                         br
                         center
                             button.btn.first-gradient.animated#buttonSearch(type="submit") Load
