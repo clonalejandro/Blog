@@ -18,3 +18,4 @@ You can create entries in <b>your-url/panel</b> and click in the top bubble whos
 ### Configuration
 
 - In the <b>assets/data/config.json</b> you can configure the server
+- In the <b>views/components/disqus.pug</b> You can configure your own disqus
