@@ -115,7 +115,10 @@ class PostBuilder {
 
 };
 
-const modalNews = new Modal("modalNews");
+const modalNews = new Modal("modalNews", {
+    registerCloseEvent: true,//When you click the "x", this close
+    registerCloseOut: true//When you click out the modal, this close
+});
 
 function loadModalFeed(){
     const rand = Math.floor((Math.random() * 15) + 1);
@@ -128,7 +131,6 @@ $(document).ready(() => {
     
     /** MODAL **/
     loadModalFeed();//For start modal hardly ever
-    $("#modalNews .modal-close").click(() => modalNews.close());
 
     /** POST BUILDER */
     const builder = new PostBuilder();

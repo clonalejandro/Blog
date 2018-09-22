@@ -65,14 +65,15 @@ class PostTable {
 /** FUNCTIONAL **/
 
 var postId = 0;
-const modalTrasher = new Modal("modalTrasher");
+const modalTrasher = new Modal("modalTrasher", {
+    registerCloseEvent: true,//When you click the "x", this close
+    registerCloseOut: true//When you click out the modal, this close
+});
 
 $(document).ready(() => {
     const postTable = new PostTable();
 
     //LISTENERS
-    $("#modalTrasher .modal-close").click(() => modalTrasher.close());
-    $("#modalTrasher .close").click(() => modalTrasher.close());
     $("#modalTrasher .delete").click(() => deleteEntrie());
     $("textarea").jqte({change: onContentChange}).jqteVal("<span style='color: red'>Put your post content here</span>");
     $('[name=tags]').tagify({maxTags: 20, delimiters: ","});
