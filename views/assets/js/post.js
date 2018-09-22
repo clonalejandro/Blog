@@ -123,8 +123,14 @@ function onEditorChange(){
 
 
 $(document).ready(() => {
+    let posts = new Array();
+    let postNames = new Array();
+
     /** START THE LAZYLOAD */
     new LazyLoad();
+
+    /** INSTANCE MODAL SEARCH */
+    const modalSearch = new Modal("modalSearch")
 
     /** FORMAT TEXT */
     $(".date").text(
@@ -138,6 +144,47 @@ $(document).ready(() => {
     $("#description").html(
         breakeFormater($("#description").html())
     );
+
+    //Get posts, get postNames & save this
+    (() => {
+        const url = `/api/last-entries?key=${apiKey}&amount=100`;
+        const req = new XMLHttpRequest();
+
+        req.open("get", url, true);
+        req.onreadystatechange = event => {
+            if (req.readyState === 4)
+                if (req.status === 200){
+                    const res = JSON.parse(req.responseText);
+                    res.forEach(e => { 
+                        posts.push({title: e.title, url: e.url})
+                        postNames.push(e.title);
+                    });
+                } 
+                else console.error(req.statusText);
+        };
+        req.send();
+    })();
+
+    //Listener for search navbar
+    $("#search").on("click", e => {
+        const autocomplete = new Awesomplete($("input[name='search']")[0]);
+        modalSearch.open();
+        autocomplete.list = postNames;
+    });
+
+
+    //Listener for submit search navbar
+    $("#buttonSearch").on("click", e => {
+        const searchText = $("input[name='search']").val();
+        let url = "";
+
+        posts.forEach(e => {
+            if (e.title == searchText) url = "/posts" + e.url;
+        });
+
+        setTimeout(window.location = url, 500);
+    });
+
 
     //START THE EDITOR
     if (document.getElementById("editor")){

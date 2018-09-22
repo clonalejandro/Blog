@@ -66,15 +66,29 @@ html
                 include assets/editor/editor.min.css
         style
             include assets/lazyload/lazyload.min.css
-        style 
+            include assets/css/autocomplete.min.css
             include assets/css/style.min.css
             include assets/css/post.min.css
     body
+        div#modalSearch.modal.big
+            div.modal-container
+                p Search a post in the input
+                form(onsubmit="return false;", autocomplete="off")
+                    div.form-group
+                        div.autocompleter
+                            label Search
+                                i.icons-search
+                            input(placeholder="Post name", name="search")
+                        br
+                        center
+                            button.btn.first-gradient.animated#buttonSearch(type="submit") Load
+                a.no-decoration.modal-close.img-replace(href="#")
+
         div#wrapper
             div.navbar
                 div.nav-container
                     a.no-decoration(href="/") Home
-                    a.no-decoration.item Search
+                    a.no-decoration.item#search Search
                     a.no-decoration.item(href="mailto:contact@clonalejandro.me") Contact
             header.header
                 div.title
@@ -110,11 +124,13 @@ html
         include components/footer.pug
         include components/script.pug
         include components/disqus.pug
-        script const postDate = '#{date}'
+        script const postDate = '#{date}'; const apiKey = '#{apiKey}';
         script
             include assets/lazyload/lazyload.min.js
         if isAuthenticated
             script
                 include assets/editor/editor.min.js
+        script
+            include assets/js/autocomplete.min.js
         script
             include assets/js/post.min.js

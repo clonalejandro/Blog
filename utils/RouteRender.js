@@ -72,7 +72,8 @@ module.exports = class RouteRender {
                         author: rows.author,
                         tagsString: rows.tags.join(" "),
                         tags: rows.tags,
-                        isAuthenticated: req.isAuthenticated()
+                        isAuthenticated: req.isAuthenticated(),
+                        apiKey: config.apiKey
                     })
                 }
                 catch (err){
