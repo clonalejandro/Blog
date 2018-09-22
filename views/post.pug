@@ -121,10 +121,10 @@ html
                         button.btn.adapter.btn-icon.green.animated.updater(id=`${id}`, onclick="onUpdaterClick()") Update
                             i.icon.icons-upload
 
+        script const postDate = '#{date}'; const apiKey = '#{apiKey}';
         include components/footer.pug
         include components/script.pug
         include components/disqus.pug
-        script const postDate = '#{date}'; const apiKey = '#{apiKey}';
         script
             include assets/lazyload/lazyload.min.js
         if isAuthenticated

@@ -12,6 +12,10 @@ tr {
     color: white;
 }
 
+.btn > i.icons-trash {
+    padding-left: 2.6em;
+}
+
 tr.head {
     background: transparent;
     color: #7A8599;
