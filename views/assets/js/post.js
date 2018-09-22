@@ -130,7 +130,8 @@ $(document).ready(() => {
     new LazyLoad();
 
     /** INSTANCE MODAL SEARCH */
-    const modalSearch = new Modal("modalSearch")
+    const modalSearch = new Modal("modalSearch");
+    $("#modalSearch .modal-close").click(() => modalSearch.close());
 
     /** FORMAT TEXT */
     $(".date").text(
