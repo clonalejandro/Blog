@@ -127,10 +127,8 @@ $(document).ready(() => {
     console.log("DOM Loaded");
     
     /** MODAL **/
-    loadModalFeed();
+    loadModalFeed();//For start modal hardly ever
     $("#modalNews .modal-close").click(() => modalNews.close());
-    $("#modalNews .close").click(() => modalNews.close());
-    //$("#modalNews .delete").click(() => deleteEntrie());
 
     /** POST BUILDER */
     const builder = new PostBuilder();
