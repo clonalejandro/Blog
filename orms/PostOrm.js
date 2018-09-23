@@ -1,6 +1,7 @@
 /** IMPORTS **/
 
 const PostSchema = require("../schemas/PostSchema");
+const Sitemap = require("../utils/Sitemap");
 
 
 /** PRIVATE METHODS **/
@@ -76,6 +77,8 @@ module.exports = class PostOrm {
             });
 
             this.App.debug("Data inserted: " + JSON.stringify(ristre));
+            
+            new Sitemap(this.App).generateFile();
         });
     }
 
@@ -105,7 +108,10 @@ module.exports = class PostOrm {
         if (this.App.isNull(callback))
             this.postSchema.findOneAndRemove(condition, (err, res) => {
                 if (err) this.App.throwErr(err);
-                else this.App.debug("Data removed! with this condition & data removed: " + JSON.stringify(condition));
+                else {
+                    this.App.debug("Data removed! with this condition & data removed: " + JSON.stringify(condition));
+                    new Sitemap(this.App).generateFile();
+                }
             });
         else this.postSchema.findOneAndRemove(condition, callback);
     }
