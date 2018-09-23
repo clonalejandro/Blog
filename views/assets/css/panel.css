@@ -12,7 +12,7 @@ tr {
     color: white;
 }
 
-.btn > i.icons-trash {
+.btn.trasher {
     padding-left: 2.6em;
 }
 

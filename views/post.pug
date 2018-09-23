@@ -70,6 +70,8 @@ html
             include assets/css/style.min.css
             include assets/css/post.min.css
     body
+        include components/noscript.pug
+        
         div#modalSearch.modal
             div.modal-container
                 p Search a post in the input
@@ -132,4 +134,5 @@ html
                 include assets/editor/editor.min.js
         script
             include assets/autocomplete/autocomplete.min.js
+        script
             include assets/js/post.min.js

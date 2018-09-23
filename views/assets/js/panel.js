@@ -53,7 +53,7 @@ class PostTable {
 
             element += "<td>" + `<a style='color: white' class='no-decoration' href='/posts${properties.url}'>${properties.postId}</a>` + "</td>";
             element += "<td>" + `<a style='color: white' class='no-decoration' href='/posts${properties.url}'>${properties.title}</a>` + "</td>";
-            element += "<td>" + `<a class='btn btn-icon red animated' onclick='openTrasher(this)' id='D${properties.postId}'><i class='icon icons-trash'></i></a>` + "</td>";
+            element += "<td>" + `<a class='btn btn-icon trasher red animated' onclick='openTrasher(this)' id='D${properties.postId}'><i class='icon icons-trash'></i></a>` + "</td>";
 
             $("#posts").append(element);
         }
