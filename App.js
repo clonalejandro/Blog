@@ -216,12 +216,10 @@ module.exports = class App {
      * This function prepare the siteMap
      */
     prepareSitemap(){
-        const url = config.url.includes("https://") ? 
-            config.url.replace("https://", "") :
-            config.url.replace("http://", "");
-
         const siteMap = sitemap({
-            url: url
+            url: config.url.includes("https://") ? config.url.replace("https://", "") : config.url.replace("http://", ""),
+            http: config.url.includes("https") ? "https" : "http",
+            port: config.port == 80 || config.port == 443 ? undefined : config.port
         });
 
         siteMap.generate(App.server);
