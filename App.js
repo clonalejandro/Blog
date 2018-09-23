@@ -4,6 +4,7 @@ const routes = require("./assets/data/routes.json");
 const config = require("./assets/data/config.json");
 const Color = require("./utils/Color");
 const flash = require("connect-flash");
+const sitemap = require("express-sitemap");
 var Mongo = require("./utils/Mongo");
 var Mailer = require("./utils/Mailer");
 var PostOrm = require("./orms/PostOrm");
@@ -208,6 +209,24 @@ module.exports = class App {
         RouteRender.renderApi();
         RouteRender.renderSitemap();
         RouteRender.renderErrors();
+    }
+
+
+    /**
+     * This function prepare the siteMap
+     */
+    prepareSitemap(){
+        const url = config.url.includes("https://") ? 
+            config.url.replace("https://", "") :
+            config.url.replace("http://", "");
+
+        const siteMap = sitemap({
+            url: url
+        });
+
+        siteMap.generate(App.server);
+
+        return siteMap;
     }
 
 

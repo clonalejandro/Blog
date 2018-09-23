@@ -2,7 +2,6 @@
 
 const config = require("../assets/data/config.json");
 const path = require("path");
-//const sitemap = require("../sitemap.xml");
 
 module.exports = class RouteRender {
 

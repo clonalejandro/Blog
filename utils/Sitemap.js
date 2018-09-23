@@ -1,15 +1,3 @@
-/** IMPORTS **/
-
-const sitemap = require("express-sitemap")();
-
-
-/** PRIVATE METHODS **/
-
-function generateMap(server){
-    sitemap.generate(server);
-}
-
-
 module.exports = class Sitemap {
 
 
@@ -17,7 +5,7 @@ module.exports = class Sitemap {
 
     constructor(App){
         this.App = App;
-        generateMap(this.App.server);
+        this.sitemap = this.App.prepareSitemap();
     }
 
 
@@ -27,7 +15,7 @@ module.exports = class Sitemap {
      * This function generates a sitemap
      */
     generateFile(){
-        sitemap.toFile();
+        this.sitemap.toFile();
     }
 
 
