@@ -206,6 +206,7 @@ module.exports = class App {
         RouteRender.renderAuth(Auth.Passport());
         RouteRender.renderPanel();
         RouteRender.renderApi();
+        RouteRender.renderSitemap();
         RouteRender.renderErrors();
     }
 

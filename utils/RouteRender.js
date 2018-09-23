@@ -1,6 +1,8 @@
 /** IMPORTS **/
 
 const config = require("../assets/data/config.json");
+const path = require("path");
+//const sitemap = require("../sitemap.xml");
 
 module.exports = class RouteRender {
 
@@ -14,6 +16,24 @@ module.exports = class RouteRender {
 
 
     /** REST **/
+
+    /**
+     * This function render the sitemap
+     */
+    renderSitemap(){
+        this.server.get('/sitemap*', (req, res) => {
+            try {
+                res.contentType('application/xml');
+                res.sendFile(path.join(__dirname, "../sitemap.xml"));
+            }
+            catch (err){
+                this.App.throwAlert(err);
+                res.status(500).send(err);
+            }
+        });
+        this.App.debug("The server is registering sitemap");
+    }
+
 
     /**
      * This function render pages with routes file
