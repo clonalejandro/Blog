@@ -87,6 +87,7 @@ module.exports = class RouteRender {
                         content: rows.content,
                         thumb: rows.thumb,
                         description: rows.description,
+                        descriptionMeta: rows.description.replace("\\n", ""),
                         date: rows.date,
                         author: rows.author,
                         tagsString: rows.tags.join(" "),
