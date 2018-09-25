@@ -78,7 +78,7 @@ html
                 form(onsubmit="return false;", autocomplete="off")
                     div.form-group
                         div.autocompleter
-                            label Search
+                            label Search 
                                 i.icons-search
                             input(style="width:100%", placeholder="Post name", name="search")
                         br
@@ -123,7 +123,7 @@ html
                         button.btn.adapter.btn-icon.green.animated.updater(id=`${id}`, onclick="onUpdaterClick()") Update
                             i.icon.icons-upload
 
-        script const postDate = '#{date}'; const apiKey = '#{apiKey}';
+        script const postDate = '#{date}'; const apiKey = '#{apiKey}'; const content = '#{content}';
         include components/footer.pug
         include components/script.pug
         include components/disqus.pug
