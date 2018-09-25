@@ -1,3 +1,9 @@
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
+
+
 /**
  * This function return a date formatted
  * @param {String} date date
@@ -10,12 +16,25 @@ function dateFormater(date){
 
 
 /**
+ * This function converts a html entity to default char
+ * @param {Stirng} string string
+ * @return {String} string string 
+ */
+function html_entity_decode(string){
+    return string.replaceAll("&lt;", "<")
+                 .replaceAll("&gt;", ">")
+                 .replaceAll("&quot;", "'")
+                 .replaceAll("\n", "\\n");
+}  
+
+
+/**
  * This function format the text replacing \n per <br>
  * @param {String} text text
  * @return {String} text 
  */
 function breakeFormater(text){
-    return text.includes("\\n") ? text.replace("\\n", "<br>") : text;
+    return text.includes("\\n") || text.includes("\n") ? text.replace("\\n", "<br>") : text;
 }
 
 
@@ -192,7 +211,9 @@ $(document).ready(() => {
     //START THE EDITOR
     if (document.getElementById("editor")){
         const postContent = $("#content").html();
-        $("textarea").jqte().jqteVal($.parseHTML(postContent.replace("<br>", "\\n")));//Al recoger el html del dom pone el br en vez del \n
+        $("textarea").jqte().jqteVal(
+            html_entity_decode(content)
+        );//Al recoger el html del dom pone el br en vez del \n
         
         //UX for preview changes in the editor
         $(".jqte_editor").on("keyup", onEditorChange);
