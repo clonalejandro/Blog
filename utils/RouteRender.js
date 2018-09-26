@@ -49,7 +49,8 @@ module.exports = class RouteRender {
                         twitter: config.twitter,
                         blogLogo: config.logo,
                         blogName: config.blogName,
-                        apiKey: config.apiKey
+                        apiKey: config.apiKey,
+                        mail: config.email
                     })
                 } 
                 catch (err){
@@ -93,7 +94,8 @@ module.exports = class RouteRender {
                         tagsString: rows.tags.join(" "),
                         tags: rows.tags,
                         isAuthenticated: req.isAuthenticated(),
-                        apiKey: config.apiKey
+                        apiKey: config.apiKey,
+                        email: config.email
                     })
                 }
                 catch (err){
@@ -325,7 +327,8 @@ module.exports = class RouteRender {
                     message: req.flash('message'),
                     blogLogo: config.logo,
                     twitter: config.twitter,
-                    webURI: config.url
+                    webURI: config.url,
+                    email: config.email
                 });
             }
             catch (err){
@@ -356,7 +359,8 @@ module.exports = class RouteRender {
                     message: req.flash('message'),
                     blogLogo: config.logo,
                     twitter: config.twitter,
-                    webURI: config.url 
+                    webURI: config.url,
+                    email: config.email
                 });
             } 
             catch (err){
@@ -400,7 +404,11 @@ module.exports = class RouteRender {
     renderPanel(){
         this.server.get('/panel', this.isAuthenticated, (req, res) => {
             try {
-                res.render('panel', {username: req.user.username, apiKey: config.apiKey});
+                res.render('panel', {
+                    username: req.user.username,
+                    apiKey: config.apiKey,
+                    email: config.email
+                });
             } 
             catch (err){
                 this.App.throwAlert(err);
@@ -423,7 +431,8 @@ module.exports = class RouteRender {
                 twitter: config.twitter,
                 blogLogo: config.logo,
                 blogName: config.blogName,
-                apiKey: config.apiKey
+                apiKey: config.apiKey,
+                email: config.email
             })
         );
         this.App.debug("The server is registering route: \"404\" aiming to: errors/404");
@@ -437,7 +446,8 @@ module.exports = class RouteRender {
                 blogLogo: config.logo,
                 blogName: config.blogName,
                 apiKey: config.apiKey,
-                error: error.message
+                error: error.message,
+                email: config.email
             })
         });
         this.App.debug("The server is registering route: \"500\" aiming to: errors/500");
@@ -457,7 +467,8 @@ module.exports = class RouteRender {
             blogLogo: config.logo,
             blogName: config.blogName,
             apiKey: config.apiKey,
-            error: error.message
+            error: error.message,
+            email: config.email
         })
     }
 
@@ -473,7 +484,8 @@ module.exports = class RouteRender {
             twitter: config.twitter,
             blogLogo: config.logo,
             blogName: config.blogName,
-            apiKey: config.apiKey
+            apiKey: config.apiKey,
+            email: config.email
         })
     }
 
