@@ -50,7 +50,7 @@ module.exports = class RouteRender {
                         blogLogo: config.logo,
                         blogName: config.blogName,
                         apiKey: config.apiKey,
-                        mail: config.email
+                        email: config.email
                     })
                 } 
                 catch (err){
