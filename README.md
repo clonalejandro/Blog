@@ -10,7 +10,7 @@ Execute this commands in this project:<br>
 If the port configured is 80 or 443 run like this:
 - ``sudo npm start``
 
-Create account in <b>your-url/signup</b> when you have created your account you set in the server config: 
+Create account in <b>your-url/signup</b> when you have created your account you need to set in the server config: 
 - ``"registerAllowed": false``
 
 You can create entries in <b>your-url/panel</b> and click in the top bubble whose icon is plus
