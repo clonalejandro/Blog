@@ -1,4 +1,4 @@
-# Blog
+# Blog 📕
 A personal tech blog built in Node JS with MongoDB and Pug.
 
 ### Use guide
