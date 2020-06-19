@@ -1,4 +1,7 @@
 # Blog 📕
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/68a5bb49435a42fbbe36b0176c71da58)](https://app.codacy.com/manual/clonalejandro/Blog?utm_source=github.com&utm_medium=referral&utm_content=clonalejandro/Blog&utm_campaign=Badge_Grade_Dashboard)
+
 A personal tech blog built in Node JS with MongoDB and Pug.
 
 ### Use guide
